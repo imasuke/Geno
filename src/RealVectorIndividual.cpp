@@ -1,0 +1,128 @@
+// RealVectorIndividual.cpp
+#include <vector>
+#include <utility>
+#include "Geeni/RealVectorIndividual.h"
+#include "Geeni/util.h"
+#include "ArrayCrossover.h"
+
+namespace Geeni{
+	RealVectorIndividual::RealVectorIndividual(const size_t gene_size, const Initializer &init, const CrossoverOperator &crossover, const MutateOperator &mutate) :
+	Individual(crossover, mutate),
+	gene_size(gene_size),
+	init(init)
+	{
+		genotype.resize(gene_size);
+		init(&genotype);
+	}
+
+	RealVectorIndividual::RealVectorIndividual(const RealVectorIndividual &c) :
+	Individual(c)
+	{
+		this->gene_size = c.gene_size;
+		this->init = c.init;
+		this->genotype.resize(c.genotype.size());
+		for(size_t i=0; i<c.genotype.size(); i++){
+			this->genotype[i] = c.genotype[i];
+		}
+	}
+
+	RealVectorIndividual::~RealVectorIndividual(){
+		genotype.clear();
+	}
+
+	Individual* RealVectorIndividual::clone(){
+		return new RealVectorIndividual(*this);
+	}
+
+	RealVectorIndividual::Initializer RealVectorIndividual::randomInitializer(const double value_min, const double value_max){
+		return [value_min, value_max](std::vector<double> *genotype){
+			Randomizer rand;
+			for(size_t i=0; i<genotype->size(); i++){
+				genotype->at(i) = rand.randomDouble(value_min, value_max);
+			}
+		};
+	}
+
+	void RealVectorIndividual::onePointCrossover(Individual *ind1, Individual *ind2){
+		RealVectorIndividual *rind1 = (RealVectorIndividual*)ind1;
+		RealVectorIndividual *rind2 = (RealVectorIndividual*)ind2;
+		Geeni::onePointCrossover(&(rind1->genotype), &(rind2->genotype), rind1->genotype.size());
+	}
+
+	void RealVectorIndividual::twoPointCrossover(Individual *ind1, Individual *ind2){
+		RealVectorIndividual *rind1 = (RealVectorIndividual*)ind1;
+		RealVectorIndividual *rind2 = (RealVectorIndividual*)ind2;
+		Geeni::twoPointCrossover(&(rind1->genotype), &(rind2->genotype), rind1->genotype.size());
+	}
+
+	void RealVectorIndividual::uniformCrossover(Individual *ind1, Individual *ind2){
+		RealVectorIndividual *rind1 = (RealVectorIndividual*)ind1;
+		RealVectorIndividual *rind2 = (RealVectorIndividual*)ind2;
+		Geeni::uniformCrossover(&(rind1->genotype), &(rind2->genotype), rind1->genotype.size());
+	}
+
+	void RealVectorIndividual::blxAlphaCrossover(Individual *ind1, Individual *ind2){
+		RealVectorIndividual *rind1, *rind2;
+		Randomizer rand;
+		double alpha = 0.3, vmax, vmin, vdiff;
+		unsigned int n;
+
+		rind1 = (RealVectorIndividual*)ind1;
+		rind2 = (RealVectorIndividual*)ind2;
+		n = rind1->genotype.size();
+
+		for(size_t i=0; i<n; i++){
+			vmin = std::min(rind1->genotype[i], rind2->genotype[i]);
+			vmax = std::max(rind1->genotype[i], rind2->genotype[i]);
+			vdiff = std::abs(rind1->genotype[i] - rind2->genotype[i]);
+			rind1->genotype[i] = rand.randomDouble(vmin - alpha * vdiff, vmax + alpha * vdiff);
+			rind2->genotype[i] = rand.randomDouble(vmin - alpha * vdiff, vmax + alpha * vdiff);
+		}
+	}
+
+	MutateOperator RealVectorIndividual::randomMutate(const double value_min, const double value_max){
+		return [value_min, value_max](Individual *ind){
+			Randomizer rand;
+			RealVectorIndividual *rind = (RealVectorIndividual*)ind;
+			for(size_t i=0; i<rind->genotype.size(); i++){
+				rind->genotype[i] = rand.randomDouble(value_min, value_max);
+			}
+		};
+	}
+
+	RealVectorIndividual::Factory::Factory() :
+	gene_size_(100),
+	init_(RealVectorIndividual::randomInitializer(0.0, 1.0)),
+	crossover_(RealVectorIndividual::blxAlphaCrossover), 
+	mutate_(RealVectorIndividual::randomMutate(0.0, 1.0))
+	{
+	}
+
+	RealVectorIndividual::Factory::~Factory(){
+	}
+
+	Individual* RealVectorIndividual::Factory::create(){
+		return new RealVectorIndividual(gene_size_, init_, crossover_, mutate_);
+	}
+
+	RealVectorIndividual::Factory& RealVectorIndividual::Factory::geneSize(const size_t gene_size){
+		gene_size_ = gene_size;
+		return *this;
+	}
+
+	RealVectorIndividual::Factory& RealVectorIndividual::Factory::initializer(const Initializer &init){
+		init_ = init;
+		return *this;
+	}
+
+	RealVectorIndividual::Factory& RealVectorIndividual::Factory::crossover(const CrossoverOperator &crossover){
+		crossover_ = crossover;
+		return *this;
+	}
+
+	RealVectorIndividual::Factory& RealVectorIndividual::Factory::mutate(const MutateOperator &mutate){
+		mutate_ = mutate;
+		return *this;
+	}
+
+}

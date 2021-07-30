@@ -5,6 +5,8 @@
 #include "Geeni/util.h"
 #include "ArrayCrossover.h"
 
+using std::vector;
+
 namespace Geeni{
 	BinaryArrayIndividual::BinaryArrayIndividual(const size_t gene_size, const Initializer &init, const CrossoverOperator &crossover, const MutateOperator &mutate) :
 	ArrayIndividual(gene_size, crossover, mutate),
@@ -28,47 +30,57 @@ namespace Geeni{
 		return new BinaryArrayIndividual(*this);
 	}
 
-	void BinaryArrayIndividual::randomInitializer(std::vector<bool> *gene){
-		Randomizer rand;
-		for(size_t i=0; i<gene->size(); i++){
-			if(rand.randomDouble(1.0) > 0.5)
-				gene->at(i) = true;
-			else
-				gene->at(i) = false;
-		}
+	BinaryArrayIndividual::Initializer BinaryArrayIndividual::randomInitializer(){
+		return [](vector<bool> *gene){
+			Randomizer rand;
+			for(size_t i=0; i<gene->size(); i++){
+				if(rand.randomDouble(1.0) > 0.5)
+					gene->at(i) = true;
+				else
+					gene->at(i) = false;
+			}
+		};
 	}
 
-	void BinaryArrayIndividual::onePointCrossover(Individual *ind1, Individual *ind2){
-		BinaryArrayIndividual *bind1 = (BinaryArrayIndividual*)ind1;
-		BinaryArrayIndividual *bind2 = (BinaryArrayIndividual*)ind2;
-		Geeni::onePointCrossover(&(bind1->genotype), &(bind2->genotype), bind1->genotype.size());
+	CrossoverOperator BinaryArrayIndividual::onePointCrossover(){
+		return [](Individual *ind1, Individual *ind2){
+			BinaryArrayIndividual *bind1 = (BinaryArrayIndividual*)ind1;
+			BinaryArrayIndividual *bind2 = (BinaryArrayIndividual*)ind2;
+			Geeni::onePointCrossover(&(bind1->genotype), &(bind2->genotype), bind1->genotype.size());
+		};
 	}
 
-	void BinaryArrayIndividual::twoPointCrossover(Individual *ind1, Individual *ind2){
-		BinaryArrayIndividual *bind1 = (BinaryArrayIndividual*)ind1;
-		BinaryArrayIndividual *bind2 = (BinaryArrayIndividual*)ind2;
-		Geeni::twoPointCrossover(&(bind1->genotype), &(bind2->genotype), bind1->genotype.size());
+	CrossoverOperator BinaryArrayIndividual::twoPointCrossover(){
+		return [](Individual *ind1, Individual *ind2){
+			BinaryArrayIndividual *bind1 = (BinaryArrayIndividual*)ind1;
+			BinaryArrayIndividual *bind2 = (BinaryArrayIndividual*)ind2;
+			Geeni::twoPointCrossover(&(bind1->genotype), &(bind2->genotype), bind1->genotype.size());
+		};
 	}
 
-	void BinaryArrayIndividual::uniformCrossover(Individual *ind1, Individual *ind2){
-		BinaryArrayIndividual *bind1 = (BinaryArrayIndividual*)ind1;
-		BinaryArrayIndividual *bind2 = (BinaryArrayIndividual*)ind2;
-		Geeni::uniformCrossover(&(bind1->genotype), &(bind2->genotype), bind1->genotype.size());
+	CrossoverOperator BinaryArrayIndividual::uniformCrossover(){
+		return [](Individual *ind1, Individual *ind2){
+			BinaryArrayIndividual *bind1 = (BinaryArrayIndividual*)ind1;
+			BinaryArrayIndividual *bind2 = (BinaryArrayIndividual*)ind2;
+			Geeni::uniformCrossover(&(bind1->genotype), &(bind2->genotype), bind1->genotype.size());
+		};
 	}
 
-	void BinaryArrayIndividual::randomMutate(Individual *ind){
-		BinaryArrayIndividual *bind = (BinaryArrayIndividual*)ind;
-		for(unsigned int i=0; i<bind->genotype.size(); i++){
-			bind->genotype[i] = !bind->genotype[i];
-		}
+	MutateOperator BinaryArrayIndividual::randomMutate(){
+		return [](Individual *ind){
+			BinaryArrayIndividual *bind = (BinaryArrayIndividual*)ind;
+			for(unsigned int i=0; i<bind->genotype.size(); i++){
+				bind->genotype[i] = !bind->genotype[i];
+			}
+		};
 	}
 
 	BinaryArrayIndividual::Factory::Factory() :
 	IndividualFactory(),
 	gene_size_(100),
-	init_(BinaryArrayIndividual::randomInitializer),
-	crossover_(BinaryArrayIndividual::uniformCrossover),
-	mutate_(BinaryArrayIndividual::randomMutate)
+	init_(BinaryArrayIndividual::randomInitializer()),
+	crossover_(BinaryArrayIndividual::uniformCrossover()),
+	mutate_(BinaryArrayIndividual::randomMutate())
 	{}
 
 	BinaryArrayIndividual::Factory::~Factory(){

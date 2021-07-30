@@ -16,16 +16,16 @@ namespace Geeni{
 		Individual* clone();
 		static Initializer randomInitializer(const int value_min, const int value_max);
 		static Initializer uniqueInitializer(const int value_min, const int value_max);
-		static void onePointCrossover(Individual *ind1, Individual *ind2);
-		static void twoPointCrossover(Individual *ind1, Individual *ind2);
-		static void uniformCrossover(Individual *ind1, Individual *ind2);
-		static void cyclicCrossover(Individual *ind1, Individual *ind2);
-		static void partiallyMappedCrossover(Individual *ind1, Individual *ind2);
-		static void orderCrossover(Individual *ind1, Individual *ind2);
-		static void randomMutate(Individual *ind);
+		static CrossoverOperator onePointCrossover();
+		static CrossoverOperator twoPointCrossover();
+		static CrossoverOperator uniformCrossover();
+		static CrossoverOperator cyclicCrossover();
+		static CrossoverOperator partiallyMappedCrossover();
+		static CrossoverOperator orderCrossover();
+		static MutateOperator randomMutate();
 		static MutateOperator randomMutate(const int value_min, const int value_max);
-		static void swapMutate(Individual *ind);
-		static void shuffleMutate(Individual *ind);
+		static MutateOperator swapMutate();
+		static MutateOperator shuffleMutate();
 
 		class Factory : public IndividualFactory{
 		public:

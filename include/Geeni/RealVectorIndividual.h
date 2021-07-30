@@ -15,10 +15,10 @@ namespace Geeni{
 		~RealVectorIndividual();
 		Individual* clone();
 		static Initializer randomInitializer(const double value_min, const double value_max);
-		static void onePointCrossover(Individual *ind1, Individual *ind2);
-		static void twoPointCrossover(Individual *ind1, Individual *ind2);
-		static void uniformCrossover(Individual *ind1, Individual *ind2);
-		static void blxAlphaCrossover(Individual *ind1, Individual *ind2);
+		static CrossoverOperator onePointCrossover();
+		static CrossoverOperator twoPointCrossover();
+		static CrossoverOperator uniformCrossover();
+		static CrossoverOperator blxAlphaCrossover();
 		static MutateOperator randomMutate(const double value_min, const double value_max);
 
 		class Factory : public IndividualFactory{

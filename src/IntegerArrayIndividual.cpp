@@ -57,40 +57,52 @@ namespace Geeni{
 		};
 	}
 
-	void IntegerArrayIndividual::onePointCrossover(Individual *ind1, Individual *ind2){
-		IntegerArrayIndividual *iind1 = (IntegerArrayIndividual*)ind1;
-		IntegerArrayIndividual *iind2 = (IntegerArrayIndividual*)ind2;
-		Geeni::onePointCrossover(&(iind1->genotype), &(iind2->genotype), iind1->genotype.size());
+	CrossoverOperator IntegerArrayIndividual::onePointCrossover(){
+		return [](Individual *ind1, Individual *ind2){
+			IntegerArrayIndividual *iind1 = (IntegerArrayIndividual*)ind1;
+			IntegerArrayIndividual *iind2 = (IntegerArrayIndividual*)ind2;
+			Geeni::onePointCrossover(&(iind1->genotype), &(iind2->genotype), iind1->genotype.size());
+		};
 	}
 
-	void IntegerArrayIndividual::twoPointCrossover(Individual *ind1, Individual *ind2){
-		IntegerArrayIndividual *iind1 = (IntegerArrayIndividual*)ind1;
-		IntegerArrayIndividual *iind2 = (IntegerArrayIndividual*)ind2;
-		Geeni::twoPointCrossover(&(iind1->genotype), &(iind2->genotype), iind1->genotype.size());
+	CrossoverOperator IntegerArrayIndividual::twoPointCrossover(){
+		return [](Individual *ind1, Individual *ind2){
+			IntegerArrayIndividual *iind1 = (IntegerArrayIndividual*)ind1;
+			IntegerArrayIndividual *iind2 = (IntegerArrayIndividual*)ind2;
+			Geeni::twoPointCrossover(&(iind1->genotype), &(iind2->genotype), iind1->genotype.size());
+		};
 	}
 
-	void IntegerArrayIndividual::uniformCrossover(Individual *ind1, Individual *ind2){
-		IntegerArrayIndividual *iind1 = (IntegerArrayIndividual*)ind1;
-		IntegerArrayIndividual *iind2 = (IntegerArrayIndividual*)ind2;
-		Geeni::uniformCrossover(&(iind1->genotype), &(iind2->genotype), iind1->genotype.size());
+	CrossoverOperator IntegerArrayIndividual::uniformCrossover(){
+		return [](Individual *ind1, Individual *ind2){
+			IntegerArrayIndividual *iind1 = (IntegerArrayIndividual*)ind1;
+			IntegerArrayIndividual *iind2 = (IntegerArrayIndividual*)ind2;
+			Geeni::uniformCrossover(&(iind1->genotype), &(iind2->genotype), iind1->genotype.size());
+		};
 	}
 
-	void IntegerArrayIndividual::cyclicCrossover(Individual *ind1, Individual *ind2){
-		IntegerArrayIndividual *iind1 = (IntegerArrayIndividual*)ind1;
-		IntegerArrayIndividual *iind2 = (IntegerArrayIndividual*)ind2;
-		Geeni::cyclicCrossover(&(iind1->genotype), &(iind2->genotype), iind1->genotype.size());
+	CrossoverOperator IntegerArrayIndividual::cyclicCrossover(){
+		return [](Individual *ind1, Individual *ind2){
+			IntegerArrayIndividual *iind1 = (IntegerArrayIndividual*)ind1;
+			IntegerArrayIndividual *iind2 = (IntegerArrayIndividual*)ind2;
+			Geeni::cyclicCrossover(&(iind1->genotype), &(iind2->genotype), iind1->genotype.size());
+		};
 	}
 
-	void IntegerArrayIndividual::partiallyMappedCrossover(Individual *ind1, Individual *ind2){
-		IntegerArrayIndividual *iind1 = (IntegerArrayIndividual*)ind1;
-		IntegerArrayIndividual *iind2 = (IntegerArrayIndividual*)ind2;
-		Geeni::partiallyMappedCrossover(&(iind1->genotype), &(iind2->genotype), iind1->genotype.size());
+	CrossoverOperator IntegerArrayIndividual::partiallyMappedCrossover(){
+		return [](Individual *ind1, Individual *ind2){
+			IntegerArrayIndividual *iind1 = (IntegerArrayIndividual*)ind1;
+			IntegerArrayIndividual *iind2 = (IntegerArrayIndividual*)ind2;
+			Geeni::partiallyMappedCrossover(&(iind1->genotype), &(iind2->genotype), iind1->genotype.size());
+		};
 	}
 
-	void IntegerArrayIndividual::orderCrossover(Individual *ind1, Individual *ind2){
-		IntegerArrayIndividual *iind1 = (IntegerArrayIndividual*)ind1;
-		IntegerArrayIndividual *iind2 = (IntegerArrayIndividual*)ind2;
-		Geeni::orderCrossover(&(iind1->genotype), &(iind2->genotype), iind1->genotype.size());
+	CrossoverOperator IntegerArrayIndividual::orderCrossover(){
+		return [](Individual *ind1, Individual *ind2){
+			IntegerArrayIndividual *iind1 = (IntegerArrayIndividual*)ind1;
+			IntegerArrayIndividual *iind2 = (IntegerArrayIndividual*)ind2;
+			Geeni::orderCrossover(&(iind1->genotype), &(iind2->genotype), iind1->genotype.size());
+		};
 	}
 
 	MutateOperator IntegerArrayIndividual::randomMutate(const int value_min, const int value_max){
@@ -104,30 +116,34 @@ namespace Geeni{
 		};
 	}
 
-	void IntegerArrayIndividual::swapMutate(Individual *ind){
-		Randomizer rand;
-		IntegerArrayIndividual *iind = (IntegerArrayIndividual*)ind;
-		unsigned int gene_size = iind->genotype.size();
-		std::swap(iind->genotype.at(rand.randomInt(gene_size-1)), iind->genotype.at(rand.randomInt(gene_size-1)));
+	MutateOperator IntegerArrayIndividual::swapMutate(){
+		return [](Individual *ind){
+			Randomizer rand;
+			IntegerArrayIndividual *iind = (IntegerArrayIndividual*)ind;
+			unsigned int gene_size = iind->genotype.size();
+			std::swap(iind->genotype.at(rand.randomInt(gene_size-1)), iind->genotype.at(rand.randomInt(gene_size-1)));
+		};
 	}
 
-	void IntegerArrayIndividual::shuffleMutate(Individual *ind){
-		Randomizer rand;
-		IntegerArrayIndividual *iind = (IntegerArrayIndividual*)ind;	
-		std::random_device rd;
-		unsigned int rindex1, rindex2;
+	MutateOperator IntegerArrayIndividual::shuffleMutate(){
+		return [](Individual *ind){
+			Randomizer rand;
+			IntegerArrayIndividual *iind = (IntegerArrayIndividual*)ind;	
+			std::random_device rd;
+			unsigned int rindex1, rindex2;
 
-		rindex1 = rand.randomInt(iind->genotype.size()-1);
-		rindex2 = rand.randomInt(iind->genotype.size()-1);
-		if(rindex1 > rindex2) std::swap(rindex1, rindex2);
-		std::shuffle(iind->genotype.begin()+rindex1 , iind->genotype.begin()+rindex2, std::mt19937(rd()));
+			rindex1 = rand.randomInt(iind->genotype.size()-1);
+			rindex2 = rand.randomInt(iind->genotype.size()-1);
+			if(rindex1 > rindex2) std::swap(rindex1, rindex2);
+			std::shuffle(iind->genotype.begin()+rindex1 , iind->genotype.begin()+rindex2, std::mt19937(rd()));
+		};
 	}
 
 	IntegerArrayIndividual::Factory::Factory():
 	IndividualFactory(),
 	gene_size_(100),
 	init_(IntegerArrayIndividual::randomInitializer(0, 10)),
-	crossover_(IntegerArrayIndividual::uniformCrossover),
+	crossover_(IntegerArrayIndividual::uniformCrossover()),
 	mutate_(IntegerArrayIndividual::randomMutate(0, 10))
 	{
 	}

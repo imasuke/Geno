@@ -12,7 +12,6 @@ add_library(GA SHARED
 	BinaryArrayIndividual.cpp
 	IntegerArrayIndividual.cpp
 	RealVectorIndividual.cpp
-	OnePointCrossover.cpp
 	Statistics.cpp
 	util/random.cpp
 )

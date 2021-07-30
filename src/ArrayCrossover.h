@@ -5,6 +5,7 @@
 #include <utility>
 #include <vector>
 #include <algorithm>
+#include "Geeni/Individual.h"
 #include "Geeni/util.h"
 
 namespace Geeni{

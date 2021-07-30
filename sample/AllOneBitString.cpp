@@ -56,9 +56,9 @@ class MyObserver : public Observer{
 int main(void){
 	BinaryArrayIndividual::Factory factory;
 	factory.geneSize(100)
-		.initializer(BinaryArrayIndividual::randomInitializer)
-		.crossover(BinaryArrayIndividual::uniformCrossover)
-		.mutate(BinaryArrayIndividual::randomMutate);
+		.initializer(BinaryArrayIndividual::randomInitializer())
+		.crossover(BinaryArrayIndividual::uniformCrossover())
+		.mutate(BinaryArrayIndividual::randomMutate());
 	GA ga(factory, countOneBit);
 	MyObserver observer;
 	GA::Parameter param;

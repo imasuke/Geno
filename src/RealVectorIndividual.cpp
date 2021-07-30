@@ -37,41 +37,49 @@ namespace Geeni{
 		};
 	}
 
-	void RealVectorIndividual::onePointCrossover(Individual *ind1, Individual *ind2){
-		RealVectorIndividual *rind1 = (RealVectorIndividual*)ind1;
-		RealVectorIndividual *rind2 = (RealVectorIndividual*)ind2;
-		Geeni::onePointCrossover(&(rind1->genotype), &(rind2->genotype), rind1->genotype.size());
+	CrossoverOperator RealVectorIndividual::onePointCrossover(){
+		return [](Individual *ind1, Individual *ind2){
+			RealVectorIndividual *rind1 = (RealVectorIndividual*)ind1;
+			RealVectorIndividual *rind2 = (RealVectorIndividual*)ind2;
+			Geeni::onePointCrossover(&(rind1->genotype), &(rind2->genotype), rind1->genotype.size());
+		};
 	}
 
-	void RealVectorIndividual::twoPointCrossover(Individual *ind1, Individual *ind2){
-		RealVectorIndividual *rind1 = (RealVectorIndividual*)ind1;
-		RealVectorIndividual *rind2 = (RealVectorIndividual*)ind2;
-		Geeni::twoPointCrossover(&(rind1->genotype), &(rind2->genotype), rind1->genotype.size());
+	CrossoverOperator RealVectorIndividual::twoPointCrossover(){
+		return [](Individual *ind1, Individual *ind2){
+			RealVectorIndividual *rind1 = (RealVectorIndividual*)ind1;
+			RealVectorIndividual *rind2 = (RealVectorIndividual*)ind2;
+			Geeni::twoPointCrossover(&(rind1->genotype), &(rind2->genotype), rind1->genotype.size());
+		};
 	}
 
-	void RealVectorIndividual::uniformCrossover(Individual *ind1, Individual *ind2){
-		RealVectorIndividual *rind1 = (RealVectorIndividual*)ind1;
-		RealVectorIndividual *rind2 = (RealVectorIndividual*)ind2;
-		Geeni::uniformCrossover(&(rind1->genotype), &(rind2->genotype), rind1->genotype.size());
+	CrossoverOperator RealVectorIndividual::uniformCrossover(){
+		return [](Individual *ind1, Individual *ind2){
+			RealVectorIndividual *rind1 = (RealVectorIndividual*)ind1;
+			RealVectorIndividual *rind2 = (RealVectorIndividual*)ind2;
+			Geeni::uniformCrossover(&(rind1->genotype), &(rind2->genotype), rind1->genotype.size());
+		};
 	}
 
-	void RealVectorIndividual::blxAlphaCrossover(Individual *ind1, Individual *ind2){
-		RealVectorIndividual *rind1, *rind2;
-		Randomizer rand;
-		double alpha = 0.3, vmax, vmin, vdiff;
-		unsigned int n;
+	CrossoverOperator RealVectorIndividual::blxAlphaCrossover(){
+		return [](Individual *ind1, Individual *ind2){
+			RealVectorIndividual *rind1, *rind2;
+			Randomizer rand;
+			double alpha = 0.3, vmax, vmin, vdiff;
+			unsigned int n;
 
-		rind1 = (RealVectorIndividual*)ind1;
-		rind2 = (RealVectorIndividual*)ind2;
-		n = rind1->genotype.size();
+			rind1 = (RealVectorIndividual*)ind1;
+			rind2 = (RealVectorIndividual*)ind2;
+			n = rind1->genotype.size();
 
-		for(size_t i=0; i<n; i++){
-			vmin = std::min(rind1->genotype[i], rind2->genotype[i]);
-			vmax = std::max(rind1->genotype[i], rind2->genotype[i]);
-			vdiff = std::abs(rind1->genotype[i] - rind2->genotype[i]);
-			rind1->genotype[i] = rand.randomDouble(vmin - alpha * vdiff, vmax + alpha * vdiff);
-			rind2->genotype[i] = rand.randomDouble(vmin - alpha * vdiff, vmax + alpha * vdiff);
-		}
+			for(size_t i=0; i<n; i++){
+				vmin = std::min(rind1->genotype[i], rind2->genotype[i]);
+				vmax = std::max(rind1->genotype[i], rind2->genotype[i]);
+				vdiff = std::abs(rind1->genotype[i] - rind2->genotype[i]);
+				rind1->genotype[i] = rand.randomDouble(vmin - alpha * vdiff, vmax + alpha * vdiff);
+				rind2->genotype[i] = rand.randomDouble(vmin - alpha * vdiff, vmax + alpha * vdiff);
+			}
+		};
 	}
 
 	MutateOperator RealVectorIndividual::randomMutate(const double value_min, const double value_max){
@@ -87,7 +95,7 @@ namespace Geeni{
 	RealVectorIndividual::Factory::Factory() :
 	gene_size_(100),
 	init_(RealVectorIndividual::randomInitializer(0.0, 1.0)),
-	crossover_(RealVectorIndividual::blxAlphaCrossover), 
+	crossover_(RealVectorIndividual::blxAlphaCrossover()), 
 	mutate_(RealVectorIndividual::randomMutate(0.0, 1.0))
 	{
 	}

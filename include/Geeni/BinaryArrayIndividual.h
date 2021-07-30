@@ -14,11 +14,11 @@ namespace Geeni{
 		BinaryArrayIndividual(const BinaryArrayIndividual&);
 		~BinaryArrayIndividual();
 		Individual* clone();
-		static void randomInitializer(std::vector<bool> *gene);
-		static void onePointCrossover(Individual *ind1, Individual *ind2);
-		static void twoPointCrossover(Individual *ind1, Individual *ind2);
-		static void uniformCrossover(Individual *ind1, Individual *ind2);
-		static void randomMutate(Individual *ind);
+		static Initializer randomInitializer();
+		static CrossoverOperator onePointCrossover();
+		static CrossoverOperator twoPointCrossover();
+		static CrossoverOperator uniformCrossover();
+		static MutateOperator randomMutate();
 
 		class Factory : public IndividualFactory{
 		public:

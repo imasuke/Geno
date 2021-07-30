@@ -98,8 +98,8 @@ int main(void){
 	IntegerArrayIndividual::Factory factory;
 	factory.geneSize(CITY_POSITIONS.size())
 		.initializer(IntegerArrayIndividual::uniqueInitializer(0, CITY_POSITIONS.size()-1))
-		.crossover(IntegerArrayIndividual::orderCrossover)
-		.mutate(IntegerArrayIndividual::swapMutate);
+		.crossover(IntegerArrayIndividual::orderCrossover())
+		.mutate(IntegerArrayIndividual::swapMutate());
 	TSPFitness ff;
 	GA ga(factory, ff);
 	MyObserver observer;

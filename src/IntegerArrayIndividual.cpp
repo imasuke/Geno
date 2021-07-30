@@ -9,8 +9,7 @@ using std::vector;
 
 namespace Geeni{
 	IntegerArrayIndividual::IntegerArrayIndividual(const size_t gene_size, const Initializer &init, const CrossoverOperator &crossover, const MutateOperator &mutate) :
-	Individual(crossover, mutate),
-	gene_size(gene_size),
+	ArrayIndividual(gene_size, crossover, mutate),
 	init(init)
 	{
 		genotype.resize(gene_size);
@@ -18,14 +17,9 @@ namespace Geeni{
 	}
 
 	IntegerArrayIndividual::IntegerArrayIndividual(const IntegerArrayIndividual &c) :
-	Individual(c)
+	ArrayIndividual(c)
 	{
-		this->gene_size = c.gene_size;
 		this->init = c.init;
-		this->genotype.resize(c.genotype.size());
-		for(size_t i=0; i<c.genotype.size(); i++){
-			this->genotype[i] = c.genotype[i];
-		}
 	}
 
 	IntegerArrayIndividual::~IntegerArrayIndividual(){

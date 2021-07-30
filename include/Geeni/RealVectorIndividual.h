@@ -6,7 +6,7 @@
 
 namespace Geeni{
 	
-	class RealVectorIndividual : public Individual{
+	class RealVectorIndividual : public ArrayIndividual<double>{
 	public:
 		typedef std::function <void(std::vector<double>*)> Initializer;
 
@@ -39,8 +39,6 @@ namespace Geeni{
 		};
 
 	public:
-		std::vector<double> genotype;
-		size_t gene_size;
 		Initializer init;
 	};
 }

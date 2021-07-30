@@ -6,7 +6,7 @@
 
 namespace Geeni{
 	
-	class BinaryArrayIndividual : public Individual{
+	class BinaryArrayIndividual : public ArrayIndividual<bool>{
 	public:
 		typedef std::function <void(std::vector<bool>*)> Initializer;
 
@@ -38,8 +38,6 @@ namespace Geeni{
 		};
 
 	public:
-		std::vector<bool> genotype;
-		size_t gene_size;
 		Initializer init;
 	};
 }

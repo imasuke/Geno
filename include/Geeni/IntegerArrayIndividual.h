@@ -6,7 +6,7 @@
 
 namespace Geeni{
 	
-	class IntegerArrayIndividual : public Individual{
+	class IntegerArrayIndividual : public ArrayIndividual<int>{
 	public:
 		typedef std::function <void(std::vector<int>*)> Initializer;
 
@@ -44,8 +44,6 @@ namespace Geeni{
 		};
 
 	public:
-		std::vector<int> genotype;
-		size_t gene_size;
 		Initializer init;
 	};
 }

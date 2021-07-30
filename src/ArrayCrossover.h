@@ -5,11 +5,11 @@
 #include <utility>
 #include <vector>
 #include <algorithm>
-#include "Geeni/Individual.h"
-#include "Geeni/util.h"
+#include "Geno/Individual.h"
+#include "Geno/util.h"
 #include "Crossover.h"
 
-namespace Geeni{
+namespace Geno{
 	// Crossover template function
 	template <class T>
 	void onePointCrossover(std::vector<T> *gene1, std::vector<T> *gene2, size_t gene_size) {

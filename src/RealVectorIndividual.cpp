@@ -1,11 +1,11 @@
 // RealVectorIndividual.cpp
 #include <vector>
 #include <utility>
-#include "Geeni/RealVectorIndividual.h"
-#include "Geeni/util.h"
+#include "Geno/RealVectorIndividual.h"
+#include "Geno/util.h"
 #include "ArrayCrossover.h"
 
-namespace Geeni{
+namespace Geno{
 	RealVectorIndividual::RealVectorIndividual(const size_t gene_size, const Initializer &init, const CrossoverOperator &crossover, const MutateOperator &mutate) :
 	ArrayIndividual(gene_size, crossover, mutate),
 	init(init)

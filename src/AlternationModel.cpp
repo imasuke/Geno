@@ -1,10 +1,10 @@
 // AlternationModel.cpp
-#include "Geeni/AlternationModel.h"
-#include "Geeni/util.h"
+#include "Geno/AlternationModel.h"
+#include "Geno/util.h"
 
 using std::vector;
 
-namespace Geeni{
+namespace Geno{
 	void AlternationModel::mutateChildren(double mutation_rate){
 		Randomizer rand;
 		for(unsigned int i=0; i<children_.size(); i++){

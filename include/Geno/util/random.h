@@ -4,7 +4,7 @@
 
 #include <random>
 
-namespace Geeni{
+namespace Geno{
 	class Randomizer{
 	public:
 		Randomizer();

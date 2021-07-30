@@ -2,9 +2,9 @@
 #ifndef INTEGER_ARRAY_INDIVIDUAL_HEADER
 #define INTEGER_ARRAY_INDIVIDUAL_HEADER
 
-#include "Geeni/individual.h"
+#include "Geno/individual.h"
 
-namespace Geeni{
+namespace Geno{
 	
 	class IntegerArrayIndividual : public ArrayIndividual<int>{
 	public:

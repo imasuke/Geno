@@ -6,7 +6,7 @@
 
 #include "Individual.h"
 
-namespace Geeni{
+namespace Geno{
 
 	// Abstract class
 	class AlternationModel{

@@ -1,13 +1,13 @@
 // IntegerArrayIndividual.cpp
 #include <vector>
 #include <utility>
-#include "Geeni/IntegerArrayIndividual.h"
-#include "Geeni/util.h"
+#include "Geno/IntegerArrayIndividual.h"
+#include "Geno/util.h"
 #include "ArrayCrossover.h"
 
 using std::vector;
 
-namespace Geeni{
+namespace Geno{
 	IntegerArrayIndividual::IntegerArrayIndividual(const size_t gene_size, const Initializer &init, const CrossoverOperator &crossover, const MutateOperator &mutate) :
 	ArrayIndividual(gene_size, crossover, mutate),
 	init(init)
@@ -73,7 +73,7 @@ namespace Geeni{
 		return [](Individual *ind1, Individual *ind2){
 			IntegerArrayIndividual *iind1 = (IntegerArrayIndividual*)ind1;
 			IntegerArrayIndividual *iind2 = (IntegerArrayIndividual*)ind2;
-			Geeni::cyclicCrossover(&(iind1->genotype), &(iind2->genotype), iind1->genotype.size());
+			Geno::cyclicCrossover(&(iind1->genotype), &(iind2->genotype), iind1->genotype.size());
 		};
 	}
 
@@ -81,7 +81,7 @@ namespace Geeni{
 		return [](Individual *ind1, Individual *ind2){
 			IntegerArrayIndividual *iind1 = (IntegerArrayIndividual*)ind1;
 			IntegerArrayIndividual *iind2 = (IntegerArrayIndividual*)ind2;
-			Geeni::partiallyMappedCrossover(&(iind1->genotype), &(iind2->genotype), iind1->genotype.size());
+			Geno::partiallyMappedCrossover(&(iind1->genotype), &(iind2->genotype), iind1->genotype.size());
 		};
 	}
 
@@ -89,7 +89,7 @@ namespace Geeni{
 		return [](Individual *ind1, Individual *ind2){
 			IntegerArrayIndividual *iind1 = (IntegerArrayIndividual*)ind1;
 			IntegerArrayIndividual *iind2 = (IntegerArrayIndividual*)ind2;
-			Geeni::orderCrossover(&(iind1->genotype), &(iind2->genotype), iind1->genotype.size());
+			Geno::orderCrossover(&(iind1->genotype), &(iind2->genotype), iind1->genotype.size());
 		};
 	}
 

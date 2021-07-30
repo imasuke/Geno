@@ -2,11 +2,11 @@
 #include <iostream>
 #include <vector>
 
-#include "Geeni.h"
+#include "Geno.h"
 #include "matplotlib-cpp/matplotlibcpp.h"
 
 using std::vector;
-using namespace Geeni;
+using namespace Geno;
 namespace plt = matplotlibcpp;
 
 double countOneBit(const Individual &ind){

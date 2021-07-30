@@ -1,7 +1,7 @@
 // random.cpp
-#include "Geeni/util/random.h"
+#include "Geno/util/random.h"
 
-namespace Geeni{
+namespace Geno{
 	Randomizer::Randomizer(){
 		init();
 	}

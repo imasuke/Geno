@@ -2,9 +2,9 @@
 #ifndef CROSSOVER_HEADER
 #define CROSSOVER_HEADER
 
-#include "Geeni/individual.h"
+#include "Geno/individual.h"
 
-namespace Geeni{
+namespace Geno{
 	class Crossover{
 	public:
 		Crossover(){}

@@ -1,12 +1,12 @@
 // Statistics.cpp
 
-#include "Geeni/Statistics.h"
+#include "Geno/Statistics.h"
 #include <iostream>
 #include <limits>
 
 using std::vector;
 
-namespace Geeni{
+namespace Geno{
 	Statistics::Statistics(){
 	}
 

@@ -3,11 +3,11 @@
 #include <vector>
 #include <cmath>
 
-#include "Geeni.h"
+#include "Geno.h"
 #include "matplotlib-cpp/matplotlibcpp.h"
 
 using std::vector;
-using namespace Geeni;
+using namespace Geno;
 namespace plt = matplotlibcpp;
 
 const vector<vector<int>> CITY_POSITIONS = {

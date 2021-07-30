@@ -2,9 +2,9 @@
 #ifndef REAL_VECTOR_INDIVIDUAL_HEADER
 #define REAL_VECTOR_INDIVIDUAL_HEADER
 
-#include "Geeni/individual.h"
+#include "Geno/individual.h"
 
-namespace Geeni{
+namespace Geno{
 	
 	class RealVectorIndividual : public ArrayIndividual<double>{
 	public:

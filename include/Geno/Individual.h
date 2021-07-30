@@ -5,7 +5,7 @@
 #include <vector>
 #include <functional>
 
-namespace Geeni{
+namespace Geno{
 	class Individual;
 	typedef std::function <void(Individual*, Individual*)> CrossoverOperator;
 	typedef std::function <void(Individual*)> MutateOperator;

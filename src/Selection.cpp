@@ -1,6 +1,6 @@
 // Selection.cpp
 #include "Selection.h"
-#include "Geeni/util.h"
+#include "Geno/util.h"
 
 #include <stdexcept>
 #include <cmath>
@@ -8,7 +8,7 @@
 
 using std::vector;
 
-namespace Geeni{
+namespace Geno{
 	Population rouletteSelection(const Population &org, unsigned int n, bool select_higher_fitness){
 		Population select(n);
 		vector<double> roulette(org.size());

@@ -8,7 +8,7 @@
 
 #include <vector>
 
-namespace Geeni{
+namespace Geno{
 	class GA;
 
 	class Observer{

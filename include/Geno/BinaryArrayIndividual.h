@@ -2,9 +2,9 @@
 #ifndef BINARY_ARRAY_INDIVIDUAL_HEADER
 #define BINARY_ARRAY_INDIVIDUAL_HEADER
 
-#include "Geeni/individual.h"
+#include "Geno/individual.h"
 
-namespace Geeni{
+namespace Geno{
 	
 	class BinaryArrayIndividual : public ArrayIndividual<bool>{
 	public:

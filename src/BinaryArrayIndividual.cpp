@@ -1,13 +1,13 @@
 // BinaryArrayIndividual.cpp
 #include <vector>
 #include <utility>
-#include "Geeni/BinaryArrayIndividual.h"
-#include "Geeni/util.h"
+#include "Geno/BinaryArrayIndividual.h"
+#include "Geno/util.h"
 #include "ArrayCrossover.h"
 
 using std::vector;
 
-namespace Geeni{
+namespace Geno{
 	BinaryArrayIndividual::BinaryArrayIndividual(const size_t gene_size, const Initializer &init, const CrossoverOperator &crossover, const MutateOperator &mutate) :
 	ArrayIndividual(gene_size, crossover, mutate),
 	init(init)

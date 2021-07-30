@@ -6,7 +6,7 @@
 
 #include <vector>
 
-namespace Geeni{
+namespace Geno{
 	class Statistics{
 	public:
 		Statistics();

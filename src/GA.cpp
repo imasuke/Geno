@@ -1,12 +1,12 @@
 // GA.cpp
-#include "Geeni/GA.h"
-#include "Geeni/util.h"
+#include "Geno/GA.h"
+#include "Geno/util.h"
 #include <vector>
 #include <limits>
 
 using std::vector;
 
-namespace Geeni{
+namespace Geno{
 	GA::GA(IndividualFactory &factory, FitnessFunction ff){
 		this->factory = &factory;
 		this->ff = ff;

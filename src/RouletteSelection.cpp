@@ -1,13 +1,13 @@
 // RouletteSelection.cpp
-#include "Geeni/AlternationModel.h" 
-#include "Geeni/util.h"
+#include "Geno/AlternationModel.h" 
+#include "Geno/util.h"
 #include "Selection.h"
 
 #include <algorithm>
 
 using std::vector;
 
-namespace Geeni{
+namespace Geno{
 	RouletteSelection::RouletteSelection(){
 	}
 

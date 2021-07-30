@@ -10,6 +10,7 @@ namespace Geno{
 	ArrayIndividual(gene_size, crossover, mutate),
 	init(init)
 	{
+		this->gtype = REAL;	
 		genotype.resize(gene_size);
 		init(&genotype);
 	}

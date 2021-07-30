@@ -16,23 +16,26 @@ namespace Geno{
 	class Individual{
 	public:
 		Individual(const CrossoverOperator crossover, const MutateOperator mutate) :
-		 fitness(0.0), crossover(crossover), mutate(mutate), form(UNDEF) {}
+		 fitness(0.0), crossover(crossover), mutate(mutate), form(FORM_UNDEF), gtype(TYPE_UNDEF) {}
 		Individual(const Individual &c) {
 			fitness = c.fitness;
 			crossover = c.crossover;
 			mutate = c.mutate;
 			form = c.form;
+			gtype = c.gtype;
 		}
 		virtual ~Individual(){}
 		virtual Individual* clone() = 0;
 
 	public:
-		enum GenotypeForm {ARRAY, TREE, UNDEF};
+		enum GenotypeForm {ARRAY, TREE, FORM_UNDEF};
+		enum GeneType {REAL, INTEGER, BINARY, MIX, TYPE_UNDEF};
 
 		double fitness;
 		CrossoverOperator crossover;
 		MutateOperator mutate;
 		GenotypeForm form;
+		GeneType gtype;
 	};
 
 	// Abstract Individual class that has array genotype

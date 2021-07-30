@@ -12,6 +12,7 @@ namespace Geno{
 	ArrayIndividual(gene_size, crossover, mutate),
 	init(init)
 	{
+		this->gtype = BINARY;	
 		genotype.resize(gene_size);
 		init(&genotype);
 	}

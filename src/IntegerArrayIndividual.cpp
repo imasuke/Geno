@@ -58,27 +58,15 @@ namespace Geeni{
 	}
 
 	CrossoverOperator IntegerArrayIndividual::onePointCrossover(){
-		return [](Individual *ind1, Individual *ind2){
-			IntegerArrayIndividual *iind1 = (IntegerArrayIndividual*)ind1;
-			IntegerArrayIndividual *iind2 = (IntegerArrayIndividual*)ind2;
-			Geeni::onePointCrossover(&(iind1->genotype), &(iind2->genotype), iind1->genotype.size());
-		};
+		return OnePointCrossover<IntegerArrayIndividual>();
 	}
 
 	CrossoverOperator IntegerArrayIndividual::twoPointCrossover(){
-		return [](Individual *ind1, Individual *ind2){
-			IntegerArrayIndividual *iind1 = (IntegerArrayIndividual*)ind1;
-			IntegerArrayIndividual *iind2 = (IntegerArrayIndividual*)ind2;
-			Geeni::twoPointCrossover(&(iind1->genotype), &(iind2->genotype), iind1->genotype.size());
-		};
+		return TwoPointCrossover<IntegerArrayIndividual>();
 	}
 
 	CrossoverOperator IntegerArrayIndividual::uniformCrossover(){
-		return [](Individual *ind1, Individual *ind2){
-			IntegerArrayIndividual *iind1 = (IntegerArrayIndividual*)ind1;
-			IntegerArrayIndividual *iind2 = (IntegerArrayIndividual*)ind2;
-			Geeni::uniformCrossover(&(iind1->genotype), &(iind2->genotype), iind1->genotype.size());
-		};
+		return UniformCrossover<IntegerArrayIndividual>();
 	}
 
 	CrossoverOperator IntegerArrayIndividual::cyclicCrossover(){

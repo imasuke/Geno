@@ -7,8 +7,10 @@
 #include <algorithm>
 #include "Geeni/Individual.h"
 #include "Geeni/util.h"
+#include "Crossover.h"
 
 namespace Geeni{
+	// Crossover template function
 	template <class T>
 	void onePointCrossover(std::vector<T> *gene1, std::vector<T> *gene2, size_t gene_size) {
 		Randomizer rand;
@@ -152,6 +154,71 @@ namespace Geeni{
 		std::copy(child1.begin(), child1.end(), gene1->begin());
 		std::copy(child2.begin(), child2.end(), gene2->begin());
 	}
+
+	// Crossover template class
+	template <class T>
+	class OnePointCrossover : public Crossover{
+	public:
+		OnePointCrossover(){
+
+		}
+		~OnePointCrossover(){
+		}
+		void operator()(Individual *ind1, Individual *ind2){
+			if(ind1->form == Individual::ARRAY && ind2->form == Individual::ARRAY){
+				T *array_ind1 = static_cast<T*>(ind1);
+				T *array_ind2 = static_cast<T*>(ind2);
+				onePointCrossover(&(array_ind1->genotype), &(array_ind2->genotype), array_ind1->gene_size);
+			}
+		}
+		size_t requiredParents(void){
+			return kRequiredParents;
+		}
+	private:
+		const int kRequiredParents = 2;
+	};
+
+	template <class T>
+	class TwoPointCrossover : public Crossover{
+	public:
+		TwoPointCrossover(){
+		}
+		~TwoPointCrossover(){
+		}
+		void operator()(Individual *ind1, Individual *ind2){
+			if(ind1->form == Individual::ARRAY && ind2->form == Individual::ARRAY){
+				T *array_ind1 = static_cast<T*>(ind1);
+				T *array_ind2 = static_cast<T*>(ind2);
+				twoPointCrossover(&(array_ind1->genotype), &(array_ind2->genotype), array_ind1->gene_size);
+			}
+		}
+		size_t requiredParents(void){
+			return kRequiredParents;
+		}
+	private:
+		const int kRequiredParents = 2;
+	};
+
+	template <class T>
+	class UniformCrossover : public Crossover{
+	public:
+		UniformCrossover(){
+		}
+		~UniformCrossover(){
+		}
+		void operator()(Individual *ind1, Individual *ind2){
+			if(ind1->form == Individual::ARRAY && ind2->form == Individual::ARRAY){
+				T *array_ind1 = static_cast<T*>(ind1);
+				T *array_ind2 = static_cast<T*>(ind2);
+				uniformCrossover(&(array_ind1->genotype), &(array_ind2->genotype), array_ind1->gene_size);
+			}
+		}
+		size_t requiredParents(void){
+			return kRequiredParents;
+		}
+	private:
+		const int kRequiredParents = 2;
+	};
 }
 
 #endif

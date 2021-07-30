@@ -38,27 +38,15 @@ namespace Geeni{
 	}
 
 	CrossoverOperator RealVectorIndividual::onePointCrossover(){
-		return [](Individual *ind1, Individual *ind2){
-			RealVectorIndividual *rind1 = (RealVectorIndividual*)ind1;
-			RealVectorIndividual *rind2 = (RealVectorIndividual*)ind2;
-			Geeni::onePointCrossover(&(rind1->genotype), &(rind2->genotype), rind1->genotype.size());
-		};
+		return OnePointCrossover<RealVectorIndividual>();
 	}
 
 	CrossoverOperator RealVectorIndividual::twoPointCrossover(){
-		return [](Individual *ind1, Individual *ind2){
-			RealVectorIndividual *rind1 = (RealVectorIndividual*)ind1;
-			RealVectorIndividual *rind2 = (RealVectorIndividual*)ind2;
-			Geeni::twoPointCrossover(&(rind1->genotype), &(rind2->genotype), rind1->genotype.size());
-		};
+		return TwoPointCrossover<RealVectorIndividual>();
 	}
 
 	CrossoverOperator RealVectorIndividual::uniformCrossover(){
-		return [](Individual *ind1, Individual *ind2){
-			RealVectorIndividual *rind1 = (RealVectorIndividual*)ind1;
-			RealVectorIndividual *rind2 = (RealVectorIndividual*)ind2;
-			Geeni::uniformCrossover(&(rind1->genotype), &(rind2->genotype), rind1->genotype.size());
-		};
+		return UniformCrossover<RealVectorIndividual>();
 	}
 
 	CrossoverOperator RealVectorIndividual::blxAlphaCrossover(){

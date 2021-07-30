@@ -43,27 +43,15 @@ namespace Geeni{
 	}
 
 	CrossoverOperator BinaryArrayIndividual::onePointCrossover(){
-		return [](Individual *ind1, Individual *ind2){
-			BinaryArrayIndividual *bind1 = (BinaryArrayIndividual*)ind1;
-			BinaryArrayIndividual *bind2 = (BinaryArrayIndividual*)ind2;
-			Geeni::onePointCrossover(&(bind1->genotype), &(bind2->genotype), bind1->genotype.size());
-		};
+		return OnePointCrossover<BinaryArrayIndividual>();
 	}
 
 	CrossoverOperator BinaryArrayIndividual::twoPointCrossover(){
-		return [](Individual *ind1, Individual *ind2){
-			BinaryArrayIndividual *bind1 = (BinaryArrayIndividual*)ind1;
-			BinaryArrayIndividual *bind2 = (BinaryArrayIndividual*)ind2;
-			Geeni::twoPointCrossover(&(bind1->genotype), &(bind2->genotype), bind1->genotype.size());
-		};
+		return TwoPointCrossover<BinaryArrayIndividual>();
 	}
 
 	CrossoverOperator BinaryArrayIndividual::uniformCrossover(){
-		return [](Individual *ind1, Individual *ind2){
-			BinaryArrayIndividual *bind1 = (BinaryArrayIndividual*)ind1;
-			BinaryArrayIndividual *bind2 = (BinaryArrayIndividual*)ind2;
-			Geeni::uniformCrossover(&(bind1->genotype), &(bind2->genotype), bind1->genotype.size());
-		};
+		return UniformCrossover<BinaryArrayIndividual>();
 	}
 
 	MutateOperator BinaryArrayIndividual::randomMutate(){

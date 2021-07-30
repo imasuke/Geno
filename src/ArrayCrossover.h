@@ -219,6 +219,69 @@ namespace Geno{
 	private:
 		const int kRequiredParents = 2;
 	};
+
+	template <class T>
+	class CyclicCrossover : public Crossover{
+	public:
+		CyclicCrossover(){
+		}
+		~CyclicCrossover(){
+		}
+		void operator()(Individual *ind1, Individual *ind2){
+			if(ind1->form == Individual::ARRAY && ind2->form == Individual::ARRAY){
+				T *array_ind1 = static_cast<T*>(ind1);
+				T *array_ind2 = static_cast<T*>(ind2);
+				cyclicCrossover(&(array_ind1->genotype), &(array_ind2->genotype), array_ind1->gene_size);
+			}
+		}
+		size_t requiredParents(void){
+			return kRequiredParents;
+		}
+	private:
+		const int kRequiredParents = 2;
+	};
+
+	template <class T>
+	class PartiallyMappedCrossover : public Crossover{
+	public:
+		PartiallyMappedCrossover(){
+		}
+		~PartiallyMappedCrossover(){
+		}
+		void operator()(Individual *ind1, Individual *ind2){
+			if(ind1->form == Individual::ARRAY && ind2->form == Individual::ARRAY){
+				T *array_ind1 = static_cast<T*>(ind1);
+				T *array_ind2 = static_cast<T*>(ind2);
+				partiallyMappedCrossover(&(array_ind1->genotype), &(array_ind2->genotype), array_ind1->gene_size);
+			}
+		}
+		size_t requiredParents(void){
+			return kRequiredParents;
+		}
+	private:
+		const int kRequiredParents = 2;
+	};
+
+	template <class T>
+	class OrderCrossover : public Crossover{
+	public:
+		OrderCrossover(){
+		}
+		~OrderCrossover(){
+		}
+		void operator()(Individual *ind1, Individual *ind2){
+			if(ind1->form == Individual::ARRAY && ind2->form == Individual::ARRAY){
+				T *array_ind1 = static_cast<T*>(ind1);
+				T *array_ind2 = static_cast<T*>(ind2);
+				orderCrossover(&(array_ind1->genotype), &(array_ind2->genotype), array_ind1->gene_size);
+			}
+		}
+		size_t requiredParents(void){
+			return kRequiredParents;
+		}
+	private:
+		const int kRequiredParents = 2;
+	};
 }
 
 #endif

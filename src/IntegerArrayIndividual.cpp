@@ -70,27 +70,15 @@ namespace Geno{
 	}
 
 	CrossoverOperator IntegerArrayIndividual::cyclicCrossover(){
-		return [](Individual *ind1, Individual *ind2){
-			IntegerArrayIndividual *iind1 = (IntegerArrayIndividual*)ind1;
-			IntegerArrayIndividual *iind2 = (IntegerArrayIndividual*)ind2;
-			Geno::cyclicCrossover(&(iind1->genotype), &(iind2->genotype), iind1->genotype.size());
-		};
+		return CyclicCrossover<IntegerArrayIndividual>();
 	}
 
 	CrossoverOperator IntegerArrayIndividual::partiallyMappedCrossover(){
-		return [](Individual *ind1, Individual *ind2){
-			IntegerArrayIndividual *iind1 = (IntegerArrayIndividual*)ind1;
-			IntegerArrayIndividual *iind2 = (IntegerArrayIndividual*)ind2;
-			Geno::partiallyMappedCrossover(&(iind1->genotype), &(iind2->genotype), iind1->genotype.size());
-		};
+		return PartiallyMappedCrossover<IntegerArrayIndividual>();
 	}
 
 	CrossoverOperator IntegerArrayIndividual::orderCrossover(){
-		return [](Individual *ind1, Individual *ind2){
-			IntegerArrayIndividual *iind1 = (IntegerArrayIndividual*)ind1;
-			IntegerArrayIndividual *iind2 = (IntegerArrayIndividual*)ind2;
-			Geno::orderCrossover(&(iind1->genotype), &(iind2->genotype), iind1->genotype.size());
-		};
+		return PartiallyMappedCrossover<IntegerArrayIndividual>();
 	}
 
 	MutateOperator IntegerArrayIndividual::randomMutate(const int value_min, const int value_max){

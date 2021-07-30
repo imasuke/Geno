@@ -160,7 +160,7 @@ namespace Geno{
 	class OnePointCrossover : public Crossover{
 	public:
 		OnePointCrossover(){
-
+			requiredParents_ = 2;
 		}
 		~OnePointCrossover(){
 		}
@@ -171,17 +171,13 @@ namespace Geno{
 				onePointCrossover(&(array_ind1->genotype), &(array_ind2->genotype), array_ind1->gene_size);
 			}
 		}
-		size_t requiredParents(void){
-			return kRequiredParents;
-		}
-	private:
-		const int kRequiredParents = 2;
 	};
 
 	template <class T>
 	class TwoPointCrossover : public Crossover{
 	public:
 		TwoPointCrossover(){
+			requiredParents_ = 2;
 		}
 		~TwoPointCrossover(){
 		}
@@ -192,17 +188,13 @@ namespace Geno{
 				twoPointCrossover(&(array_ind1->genotype), &(array_ind2->genotype), array_ind1->gene_size);
 			}
 		}
-		size_t requiredParents(void){
-			return kRequiredParents;
-		}
-	private:
-		const int kRequiredParents = 2;
 	};
 
 	template <class T>
 	class UniformCrossover : public Crossover{
 	public:
 		UniformCrossover(){
+			requiredParents_ = 2;
 		}
 		~UniformCrossover(){
 		}
@@ -213,17 +205,13 @@ namespace Geno{
 				uniformCrossover(&(array_ind1->genotype), &(array_ind2->genotype), array_ind1->gene_size);
 			}
 		}
-		size_t requiredParents(void){
-			return kRequiredParents;
-		}
-	private:
-		const int kRequiredParents = 2;
 	};
 
 	template <class T>
 	class CyclicCrossover : public Crossover{
 	public:
 		CyclicCrossover(){
+			requiredParents_ = 2;
 		}
 		~CyclicCrossover(){
 		}
@@ -234,17 +222,13 @@ namespace Geno{
 				cyclicCrossover(&(array_ind1->genotype), &(array_ind2->genotype), array_ind1->gene_size);
 			}
 		}
-		size_t requiredParents(void){
-			return kRequiredParents;
-		}
-	private:
-		const int kRequiredParents = 2;
 	};
 
 	template <class T>
 	class PartiallyMappedCrossover : public Crossover{
 	public:
 		PartiallyMappedCrossover(){
+			requiredParents_ = 2;
 		}
 		~PartiallyMappedCrossover(){
 		}
@@ -255,18 +239,15 @@ namespace Geno{
 				partiallyMappedCrossover(&(array_ind1->genotype), &(array_ind2->genotype), array_ind1->gene_size);
 			}
 		}
-		size_t requiredParents(void){
-			return kRequiredParents;
-		}
-	private:
-		const int kRequiredParents = 2;
 	};
 
 	template <class T>
 	class OrderCrossover : public Crossover{
 	public:
 		OrderCrossover(){
+			requiredParents_ = 2;
 		}
+
 		~OrderCrossover(){
 		}
 		void operator()(Individual *ind1, Individual *ind2){
@@ -276,11 +257,45 @@ namespace Geno{
 				orderCrossover(&(array_ind1->genotype), &(array_ind2->genotype), array_ind1->gene_size);
 			}
 		}
-		size_t requiredParents(void){
-			return kRequiredParents;
+	};
+
+	template <class T>
+	class BlxAlphaCrossover : public Crossover{
+	public:
+		BlxAlphaCrossover(double alpha) : alpha_(alpha){
+			requiredParents_ = 2;
 		}
+
+		~BlxAlphaCrossover(){
+		}
+
+		void operator()(Individual *ind1, Individual *ind2){
+			if(ind1->form == Individual::ARRAY && ind1->gtype == Individual::REAL 
+			 && ind2->form == Individual::ARRAY && ind2->gtype == Individual::REAL){
+				T *rind1 = static_cast<T*>(ind1);
+				T *rind2 = static_cast<T*>(ind2);
+				blxAlphaCrossover(rind1, rind2);
+			}
+		}
+
+		void blxAlphaCrossover(T *rind1, T *rind2){
+			Randomizer rand;
+			double vmax, vmin, vdiff;
+			unsigned int n;
+
+			n = rind1->genotype.size();
+
+			for(size_t i=0; i<n; i++){
+				vmin = std::min(rind1->genotype[i], rind2->genotype[i]);
+				vmax = std::max(rind1->genotype[i], rind2->genotype[i]);
+				vdiff = std::abs(rind1->genotype[i] - rind2->genotype[i]);
+				rind1->genotype[i] = rand.randomDouble(vmin - alpha_ * vdiff, vmax + alpha_ * vdiff);
+				rind2->genotype[i] = rand.randomDouble(vmin - alpha_ * vdiff, vmax + alpha_ * vdiff);
+			}
+		}
+
 	private:
-		const int kRequiredParents = 2;
+		double alpha_;
 	};
 }
 

@@ -10,7 +10,11 @@ namespace Geno{
 		Crossover(){}
 		virtual ~Crossover(){}
 		virtual void operator()(Individual *ind1, Individual *ind2) = 0;
-		virtual size_t requiredParents(void) = 0;
+		size_t requiredParents(void){
+			return requiredParents_;
+		}
+	protected:
+		int requiredParents_ = 2;
 	};
 }
 

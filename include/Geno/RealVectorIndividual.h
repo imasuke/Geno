@@ -18,7 +18,7 @@ namespace Geno{
 		static CrossoverOperator onePointCrossover();
 		static CrossoverOperator twoPointCrossover();
 		static CrossoverOperator uniformCrossover();
-		static CrossoverOperator blxAlphaCrossover();
+		static CrossoverOperator blxAlphaCrossover(const double alpha);
 		static MutateOperator randomMutate(const double value_min, const double value_max);
 
 		class Factory : public IndividualFactory{

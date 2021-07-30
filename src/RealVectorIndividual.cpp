@@ -50,25 +50,8 @@ namespace Geno{
 		return UniformCrossover<RealVectorIndividual>();
 	}
 
-	CrossoverOperator RealVectorIndividual::blxAlphaCrossover(){
-		return [](Individual *ind1, Individual *ind2){
-			RealVectorIndividual *rind1, *rind2;
-			Randomizer rand;
-			double alpha = 0.3, vmax, vmin, vdiff;
-			unsigned int n;
-
-			rind1 = (RealVectorIndividual*)ind1;
-			rind2 = (RealVectorIndividual*)ind2;
-			n = rind1->genotype.size();
-
-			for(size_t i=0; i<n; i++){
-				vmin = std::min(rind1->genotype[i], rind2->genotype[i]);
-				vmax = std::max(rind1->genotype[i], rind2->genotype[i]);
-				vdiff = std::abs(rind1->genotype[i] - rind2->genotype[i]);
-				rind1->genotype[i] = rand.randomDouble(vmin - alpha * vdiff, vmax + alpha * vdiff);
-				rind2->genotype[i] = rand.randomDouble(vmin - alpha * vdiff, vmax + alpha * vdiff);
-			}
-		};
+	CrossoverOperator RealVectorIndividual::blxAlphaCrossover(double alpha){
+		return BlxAlphaCrossover<RealVectorIndividual>(alpha);
 	}
 
 	MutateOperator RealVectorIndividual::randomMutate(const double value_min, const double value_max){
@@ -84,7 +67,7 @@ namespace Geno{
 	RealVectorIndividual::Factory::Factory() :
 	gene_size_(100),
 	init_(RealVectorIndividual::randomInitializer(0.0, 1.0)),
-	crossover_(RealVectorIndividual::blxAlphaCrossover()), 
+	crossover_(RealVectorIndividual::blxAlphaCrossover(0.3)), 
 	mutate_(RealVectorIndividual::randomMutate(0.0, 1.0))
 	{
 	}

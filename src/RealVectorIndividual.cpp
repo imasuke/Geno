@@ -3,7 +3,7 @@
 #include <utility>
 #include "Geno/RealVectorIndividual.h"
 #include "Geno/util.h"
-#include "ArrayCrossover.h"
+#include "Geno/ArrayCrossover.h"
 
 namespace Geno{
 	RealVectorIndividual::RealVectorIndividual(const size_t gene_size, const Initializer &init, const CrossoverOperator &crossover, const MutateOperator &mutate) :

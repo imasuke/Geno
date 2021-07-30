@@ -3,7 +3,7 @@
 #include <utility>
 #include "Geno/IntegerArrayIndividual.h"
 #include "Geno/util.h"
-#include "ArrayCrossover.h"
+#include "Geno/ArrayCrossover.h"
 
 using std::vector;
 

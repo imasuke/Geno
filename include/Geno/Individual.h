@@ -7,7 +7,6 @@
 
 namespace Geno{
 	class Individual;
-	typedef std::function <void(Individual*, Individual*)> CrossoverOperator;
 	typedef std::function <void(Individual*)> MutateOperator;
 	typedef std::function <double(const Individual&)> FitnessFunction;
 	typedef std::vector<Individual*> Population;
@@ -55,33 +54,6 @@ namespace Geno{
 	public:
 		std::vector<T> genotype;
 		size_t gene_size;
-	};
-
-	// Abstract Factory class
-	class IndividualFactory{
-	public:
-		IndividualFactory(){}
-		IndividualFactory(const CrossoverOperator &crossover, const MutateOperator &mutate) : crossover_(crossover), mutate_(mutate){
-		}
-		virtual ~IndividualFactory(){}
-		virtual Individual* create() = 0; 
-		IndividualFactory& crossover(const CrossoverOperator &crossover){
-			crossover_ = crossover;
-			return *this;
-		}
-		CrossoverOperator crossover(){
-			return crossover_;
-		}
-		IndividualFactory& mutate(const MutateOperator &mutate){
-			mutate_ = mutate;
-			return *this;
-		}
-		MutateOperator mutate(){
-			return mutate_;
-		}
-	private:
-		CrossoverOperator crossover_;
-		MutateOperator mutate_;
 	};
 }
 

@@ -38,20 +38,20 @@ namespace Geno{
 		};
 	}
 
-	CrossoverOperator RealVectorIndividual::onePointCrossover(){
-		return OnePointCrossover<RealVectorIndividual>();
+	Crossover* RealVectorIndividual::onePointCrossover(){
+		return new OnePointCrossover<RealVectorIndividual>();
 	}
 
-	CrossoverOperator RealVectorIndividual::twoPointCrossover(){
-		return TwoPointCrossover<RealVectorIndividual>();
+	Crossover* RealVectorIndividual::twoPointCrossover(){
+		return new TwoPointCrossover<RealVectorIndividual>();
 	}
 
-	CrossoverOperator RealVectorIndividual::uniformCrossover(){
-		return UniformCrossover<RealVectorIndividual>();
+	Crossover* RealVectorIndividual::uniformCrossover(){
+		return new UniformCrossover<RealVectorIndividual>();
 	}
 
-	CrossoverOperator RealVectorIndividual::blxAlphaCrossover(double alpha){
-		return BlxAlphaCrossover<RealVectorIndividual>(alpha);
+	Crossover* RealVectorIndividual::blxAlphaCrossover(double alpha){
+		return new BlxAlphaCrossover<RealVectorIndividual>(alpha);
 	}
 
 	MutateOperator RealVectorIndividual::randomMutate(const double value_min, const double value_max){

@@ -2,7 +2,7 @@
 #ifndef INTEGER_ARRAY_INDIVIDUAL_HEADER
 #define INTEGER_ARRAY_INDIVIDUAL_HEADER
 
-#include "Geno/individual.h"
+#include "Geno/IndividualFactory.h"
 
 namespace Geno{
 	
@@ -16,12 +16,12 @@ namespace Geno{
 		Individual* clone();
 		static Initializer randomInitializer(const int value_min, const int value_max);
 		static Initializer uniqueInitializer(const int value_min, const int value_max);
-		static CrossoverOperator onePointCrossover();
-		static CrossoverOperator twoPointCrossover();
-		static CrossoverOperator uniformCrossover();
-		static CrossoverOperator cyclicCrossover();
-		static CrossoverOperator partiallyMappedCrossover();
-		static CrossoverOperator orderCrossover();
+		static Crossover* onePointCrossover();
+		static Crossover* twoPointCrossover();
+		static Crossover* uniformCrossover();
+		static Crossover* cyclicCrossover();
+		static Crossover* partiallyMappedCrossover();
+		static Crossover* orderCrossover();
 		static MutateOperator randomMutate();
 		static MutateOperator randomMutate(const int value_min, const int value_max);
 		static MutateOperator swapMutate();

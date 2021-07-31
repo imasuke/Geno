@@ -58,28 +58,28 @@ namespace Geno{
 		};
 	}
 
-	CrossoverOperator IntegerArrayIndividual::onePointCrossover(){
-		return OnePointCrossover<IntegerArrayIndividual>();
+	Crossover* IntegerArrayIndividual::onePointCrossover(){
+		return new OnePointCrossover<IntegerArrayIndividual>();
 	}
 
-	CrossoverOperator IntegerArrayIndividual::twoPointCrossover(){
-		return TwoPointCrossover<IntegerArrayIndividual>();
+	Crossover* IntegerArrayIndividual::twoPointCrossover(){
+		return new TwoPointCrossover<IntegerArrayIndividual>();
 	}
 
-	CrossoverOperator IntegerArrayIndividual::uniformCrossover(){
-		return UniformCrossover<IntegerArrayIndividual>();
+	Crossover* IntegerArrayIndividual::uniformCrossover(){
+		return new UniformCrossover<IntegerArrayIndividual>();
 	}
 
-	CrossoverOperator IntegerArrayIndividual::cyclicCrossover(){
-		return CyclicCrossover<IntegerArrayIndividual>();
+	Crossover* IntegerArrayIndividual::cyclicCrossover(){
+		return new CyclicCrossover<IntegerArrayIndividual>();
 	}
 
-	CrossoverOperator IntegerArrayIndividual::partiallyMappedCrossover(){
-		return PartiallyMappedCrossover<IntegerArrayIndividual>();
+	Crossover* IntegerArrayIndividual::partiallyMappedCrossover(){
+		return new PartiallyMappedCrossover<IntegerArrayIndividual>();
 	}
 
-	CrossoverOperator IntegerArrayIndividual::orderCrossover(){
-		return PartiallyMappedCrossover<IntegerArrayIndividual>();
+	Crossover* IntegerArrayIndividual::orderCrossover(){
+		return new PartiallyMappedCrossover<IntegerArrayIndividual>();
 	}
 
 	MutateOperator IntegerArrayIndividual::randomMutate(const int value_min, const int value_max){

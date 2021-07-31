@@ -49,7 +49,7 @@ namespace Geno{
 			if(rand.randomDouble(1.0) < crossover_rate){
 				int ind1 = rand_indexes[2*i];
 				int ind2 = rand_indexes[2*i+1];
-				ops_.crossover(children_[ind1], children_[ind2]);
+				(*ops_.crossover)(children_[ind1], children_[ind2]);
 			}
 		}
 	}

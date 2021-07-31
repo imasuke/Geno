@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "Individual.h"
+#include "Crossover.h"
 
 namespace Geno{
 
@@ -12,7 +13,7 @@ namespace Geno{
 	class AlternationModel{
 	public:
 		typedef struct{
-			CrossoverOperator crossover;
+			Crossover *crossover;
 			MutateOperator mutate;
 			FitnessFunction ff;
 		} OperatorSet;

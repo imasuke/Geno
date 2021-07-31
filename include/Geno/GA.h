@@ -4,6 +4,7 @@
 
 #include "AlternationModel.h"
 #include "Individual.h"
+#include "IndividualFactory.h"
 #include "Statistics.h"
 
 #include <vector>

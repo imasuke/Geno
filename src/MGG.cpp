@@ -25,7 +25,7 @@ namespace Geno{
 		}
 		// crossover
 		for(unsigned int i=1; i<children_.size()/2; i++){
-			ops_.crossover(children_[2*i], children_[2*i+1]);
+			(*ops_.crossover)(children_[2*i], children_[2*i+1]);
 		}
 	}
 

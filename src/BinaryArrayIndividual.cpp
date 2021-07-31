@@ -43,16 +43,16 @@ namespace Geno{
 		};
 	}
 
-	CrossoverOperator BinaryArrayIndividual::onePointCrossover(){
-		return OnePointCrossover<BinaryArrayIndividual>();
+	Crossover* BinaryArrayIndividual::onePointCrossover(){
+		return new OnePointCrossover<BinaryArrayIndividual>();
 	}
 
-	CrossoverOperator BinaryArrayIndividual::twoPointCrossover(){
-		return TwoPointCrossover<BinaryArrayIndividual>();
+	Crossover* BinaryArrayIndividual::twoPointCrossover(){
+		return new TwoPointCrossover<BinaryArrayIndividual>();
 	}
 
-	CrossoverOperator BinaryArrayIndividual::uniformCrossover(){
-		return UniformCrossover<BinaryArrayIndividual>();
+	Crossover* BinaryArrayIndividual::uniformCrossover(){
+		return new UniformCrossover<BinaryArrayIndividual>();
 	}
 
 	MutateOperator BinaryArrayIndividual::randomMutate(){

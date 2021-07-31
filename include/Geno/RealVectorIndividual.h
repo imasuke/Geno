@@ -2,7 +2,7 @@
 #ifndef REAL_VECTOR_INDIVIDUAL_HEADER
 #define REAL_VECTOR_INDIVIDUAL_HEADER
 
-#include "Geno/individual.h"
+#include "Geno/IndividualFactory.h"
 
 namespace Geno{
 	
@@ -15,10 +15,10 @@ namespace Geno{
 		~RealVectorIndividual();
 		Individual* clone();
 		static Initializer randomInitializer(const double value_min, const double value_max);
-		static CrossoverOperator onePointCrossover();
-		static CrossoverOperator twoPointCrossover();
-		static CrossoverOperator uniformCrossover();
-		static CrossoverOperator blxAlphaCrossover(const double alpha);
+		static Crossover* onePointCrossover();
+		static Crossover* twoPointCrossover();
+		static Crossover* uniformCrossover();
+		static Crossover* blxAlphaCrossover(const double alpha);
 		static MutateOperator randomMutate(const double value_min, const double value_max);
 
 		class Factory : public IndividualFactory{

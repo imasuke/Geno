@@ -2,7 +2,7 @@
 #ifndef BINARY_ARRAY_INDIVIDUAL_HEADER
 #define BINARY_ARRAY_INDIVIDUAL_HEADER
 
-#include "Geno/individual.h"
+#include "Geno/IndividualFactory.h"
 
 namespace Geno{
 	
@@ -15,9 +15,9 @@ namespace Geno{
 		~BinaryArrayIndividual();
 		Individual* clone();
 		static Initializer randomInitializer();
-		static CrossoverOperator onePointCrossover();
-		static CrossoverOperator twoPointCrossover();
-		static CrossoverOperator uniformCrossover();
+		static Crossover* onePointCrossover();
+		static Crossover* twoPointCrossover();
+		static Crossover* uniformCrossover();
 		static MutateOperator randomMutate();
 
 		class Factory : public IndividualFactory{

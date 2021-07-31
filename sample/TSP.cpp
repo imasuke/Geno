@@ -104,7 +104,7 @@ int main(void){
 	GA ga(factory, ff);
 	MyObserver observer;
 	GA::Parameter param;
-	MGG mgg(20);
+	MGG mgg(20, 0.05);
 
 	param.population_size = 100;
 	param.max_generation = 10000;

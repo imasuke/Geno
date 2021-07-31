@@ -31,17 +31,19 @@ namespace Geno{
 
 	void GA::evolve(){
 		bool is_goal_reached = false;
+		AlternationModel::OperatorSet ops = {factory->crossover(), factory->mutate(), ff};
 
 		initPopulation();
 		evaluatePopulation(&population);
+
 		gen = 1;
 		observer->evolutionStarted(this);
 
 		do{
-			alt_model->makeChildren(&population, factory->crossover(), factory->mutate(), param->is_maximize);
+			/*alt_model->makeChildren(&population, factory->crossover(), factory->mutate(), param->is_maximize);
 			alt_model->mutateChildren(param->mutation_rate);
-			alt_model->evaluateChildren(ff);
-			alt_model->alternatePopulation(&population, param->is_maximize);
+			alt_model->evaluateChildren(ff);*/
+			alt_model->alternatePopulation(&population, ops, param->is_maximize);
 			if(param->elite_strategy) eliteStrategy();
 			elite = findElite(param->is_maximize);
 			if(statistics_enabled) stat->collectPopulationData(population);

@@ -75,7 +75,7 @@ int main(void){
 	GA ga(factory, rosenbrock);
 	MyObserver observer;
 	GA::Parameter param;
-	MGG mgg(20); // Minimal Generation Gap
+	MGG mgg(20, 0.05); // Minimal Generation Gap
 
 	param.population_size = 100;
 	param.max_generation = 10000;

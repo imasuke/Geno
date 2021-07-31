@@ -8,20 +8,28 @@
 using std::vector;
 
 namespace Geno{
-	RouletteSelection::RouletteSelection(){
+	RouletteSelection::RouletteSelection()
+	 : crossover_rate_(0.8), mutation_rate_(0.05){
+	}	
+
+	RouletteSelection::RouletteSelection(double crossover_rate, double mutation_rate)
+	 : crossover_rate_(crossover_rate), mutation_rate_(mutation_rate){
 	}
 
 	RouletteSelection::~RouletteSelection(){
 	}
 
-	void RouletteSelection::makeChildren(Population *population, CrossoverOperator crossover, MutateOperator mutate, bool is_maximize){
-		crossover_ = crossover;
-		mutate_ = mutate;
-		children_ = rouletteSelection(*population, population->size(), is_maximize);
-		crossoverChildren(0.8); //TODO
-	}
+	void RouletteSelection::alternatePopulation(Population *population, const OperatorSet &ops, const bool is_maximize){
+		ops_ = ops;
 
-	void RouletteSelection::alternatePopulation(Population *population, bool is_maximize){
+		// Select next population with roulette
+		children_ = rouletteSelection(*population, population->size(), is_maximize);
+		// Crossover
+		crossoverChildren(crossover_rate_);
+		// Mutate
+		mutateChildren(mutation_rate_);
+		// Evaluation
+		evaluateChildren();
 		// replace all population with children
 		*population = children_;
 	}
@@ -41,7 +49,7 @@ namespace Geno{
 			if(rand.randomDouble(1.0) < crossover_rate){
 				int ind1 = rand_indexes[2*i];
 				int ind2 = rand_indexes[2*i+1];
-				crossover_(children_[ind1], children_[ind2]);
+				ops_.crossover(children_[ind1], children_[ind2]);
 			}
 		}
 	}

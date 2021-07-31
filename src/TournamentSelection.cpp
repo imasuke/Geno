@@ -8,22 +8,25 @@
 using std::vector;
 
 namespace Geno{
-	TournamentSelection::TournamentSelection(unsigned int tournament_size) 
-	: tournament_size_(tournament_size)
+	TournamentSelection::TournamentSelection(unsigned int tournament_size, double crossover_rate, double mutation_rate) 
+	: tournament_size_(tournament_size), crossover_rate_(crossover_rate), mutation_rate_(mutation_rate)
 	{
 	}
 
 	TournamentSelection::~TournamentSelection(){
 	}
 
-	void TournamentSelection::makeChildren(Population *population, CrossoverOperator crossover, MutateOperator mutate, bool is_maximize){
-		crossover_ = crossover;
-		mutate_ = mutate;
-		children_ = tournamentSelection(*population, population->size(), tournament_size_, is_maximize);
-		crossoverChildren(0.8); //TODO
-	}
+	void TournamentSelection::alternatePopulation(Population *population, const OperatorSet &ops, bool is_maximize){
+		ops_ = ops;
 
-	void TournamentSelection::alternatePopulation(Population *population, bool is_maximize){
+		// Select next population with tournament
+		children_ = tournamentSelection(*population, population->size(), tournament_size_, is_maximize);
+		// Crossover
+		crossoverChildren(crossover_rate_);
+		// Mutate
+		mutateChildren(mutation_rate_);
+		// Evaluation
+		evaluateChildren();
 		// replace all population with children
 		*population = children_;
 	}
@@ -43,7 +46,7 @@ namespace Geno{
 			if(rand.randomDouble(1.0) < crossover_rate){
 				int ind1 = rand_indexes[2*i];
 				int ind2 = rand_indexes[2*i+1];
-				crossover_(children_[ind1], children_[ind2]);
+				ops_.crossover(children_[ind1], children_[ind2]);
 			}
 		}
 	}

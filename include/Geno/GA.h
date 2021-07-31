@@ -28,13 +28,10 @@ namespace Geno{
 			unsigned int max_generation;
 			double goal_fitness;
 			bool is_maximize;
-			double crossover_rate;
-			double mutation_rate;
 			bool elite_strategy;
 
 			Parameter() : 
-			 population_size(10), max_generation(100), goal_fitness(1.0), is_maximize(true),
-			 crossover_rate(0.8), mutation_rate(0.05), elite_strategy(true)
+			 population_size(10), max_generation(100), goal_fitness(1.0), is_maximize(true), elite_strategy(true)
 			{
 			}
 		};

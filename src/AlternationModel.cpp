@@ -9,14 +9,14 @@ namespace Geno{
 		Randomizer rand;
 		for(unsigned int i=0; i<children_.size(); i++){
 			if(rand.randomDouble(1.0) < mutation_rate){
-				mutate_(children_[i]);
+				ops_.mutate(children_[i]);
 			}
 		}	
 	}
 
-	void AlternationModel::evaluateChildren(const FitnessFunction &ff){
+	void AlternationModel::evaluateChildren(){
 		for(unsigned int i=0; i<children_.size(); i++){
-			children_[i]->fitness = ff(*children_[i]);
+			children_[i]->fitness = ops_.ff(*children_[i]);
 		}
 	}
 }

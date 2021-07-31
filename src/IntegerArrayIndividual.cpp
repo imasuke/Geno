@@ -8,8 +8,8 @@
 using std::vector;
 
 namespace Geno{
-	IntegerArrayIndividual::IntegerArrayIndividual(const size_t gene_size, const Initializer &init, const CrossoverOperator &crossover, const MutateOperator &mutate) :
-	ArrayIndividual(gene_size, crossover, mutate),
+	IntegerArrayIndividual::IntegerArrayIndividual(const size_t gene_size, const Initializer &init) :
+	ArrayIndividual(gene_size),
 	init(init)
 	{
 		this->gtype = INTEGER;	
@@ -117,11 +117,9 @@ namespace Geno{
 	}
 
 	IntegerArrayIndividual::Factory::Factory():
-	IndividualFactory(),
+	IndividualFactory(IntegerArrayIndividual::uniformCrossover(), IntegerArrayIndividual::randomMutate(0, 10)),
 	gene_size_(100),
-	init_(IntegerArrayIndividual::randomInitializer(0, 10)),
-	crossover_(IntegerArrayIndividual::uniformCrossover()),
-	mutate_(IntegerArrayIndividual::randomMutate(0, 10))
+	init_(IntegerArrayIndividual::randomInitializer(0, 10))
 	{
 	}
 
@@ -129,7 +127,7 @@ namespace Geno{
 	}
 
 	Individual* IntegerArrayIndividual::Factory::create(){
-		return new IntegerArrayIndividual(gene_size_, init_, crossover_, mutate_);
+		return new IntegerArrayIndividual(gene_size_, init_);
 	}
 
 	IntegerArrayIndividual::Factory& IntegerArrayIndividual::Factory::geneSize(const size_t gene_size){
@@ -139,16 +137,6 @@ namespace Geno{
 
 	IntegerArrayIndividual::Factory& IntegerArrayIndividual::Factory::initializer(const Initializer &init){
 		init_ = init;
-		return *this;
-	}
-
-	IntegerArrayIndividual::Factory& IntegerArrayIndividual::Factory::crossover(const CrossoverOperator &crossover){
-		crossover_ = crossover;
-		return *this;
-	}
-
-	IntegerArrayIndividual::Factory& IntegerArrayIndividual::Factory::mutate(const MutateOperator &mutate){
-		mutate_ = mutate;
 		return *this;
 	}
 }

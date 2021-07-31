@@ -15,12 +15,10 @@ namespace Geno{
 	// Abstract Individual class
 	class Individual{
 	public:
-		Individual(const CrossoverOperator crossover, const MutateOperator mutate) :
-		 fitness(0.0), crossover(crossover), mutate(mutate), form(FORM_UNDEF), gtype(TYPE_UNDEF) {}
+		Individual() :
+		 fitness(0.0), form(FORM_UNDEF), gtype(TYPE_UNDEF) {}
 		Individual(const Individual &c) {
 			fitness = c.fitness;
-			crossover = c.crossover;
-			mutate = c.mutate;
 			form = c.form;
 			gtype = c.gtype;
 		}
@@ -32,8 +30,6 @@ namespace Geno{
 		enum GeneType {REAL, INTEGER, BINARY, MIX, TYPE_UNDEF};
 
 		double fitness;
-		CrossoverOperator crossover;
-		MutateOperator mutate;
 		GenotypeForm form;
 		GeneType gtype;
 	};
@@ -42,8 +38,8 @@ namespace Geno{
 	template <class T>
 	class ArrayIndividual : public Individual{
 	public:
-		ArrayIndividual(const size_t gene_size, const CrossoverOperator crossover, const MutateOperator mutate) :
-		 Individual(crossover, mutate), gene_size(gene_size) {
+		ArrayIndividual(const size_t gene_size) :
+		 Individual(), gene_size(gene_size) {
 		 	this->form = ARRAY;
 		 }
 		ArrayIndividual(const ArrayIndividual &c) :
@@ -65,8 +61,27 @@ namespace Geno{
 	class IndividualFactory{
 	public:
 		IndividualFactory(){}
+		IndividualFactory(const CrossoverOperator &crossover, const MutateOperator &mutate) : crossover_(crossover), mutate_(mutate){
+		}
 		virtual ~IndividualFactory(){}
 		virtual Individual* create() = 0; 
+		IndividualFactory& crossover(const CrossoverOperator &crossover){
+			crossover_ = crossover;
+			return *this;
+		}
+		CrossoverOperator crossover(){
+			return crossover_;
+		}
+		IndividualFactory& mutate(const MutateOperator &mutate){
+			mutate_ = mutate;
+			return *this;
+		}
+		MutateOperator mutate(){
+			return mutate_;
+		}
+	private:
+		CrossoverOperator crossover_;
+		MutateOperator mutate_;
 	};
 }
 

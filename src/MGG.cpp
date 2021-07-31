@@ -14,9 +14,11 @@ namespace Geno{
 	MGG::~MGG(){
 	}
 
-	void MGG::makeChildren(Population *population, bool is_maximize){
+	void MGG::makeChildren(Population *population, CrossoverOperator crossover, MutateOperator mutate, bool is_maximize){
 		Population &pop = *population;
 		Randomizer rand;
+		crossover_ = crossover;
+		mutate_ = mutate;
 
 		// choice 2 different individuals as parents
 		unsigned int p1, p2;
@@ -37,7 +39,7 @@ namespace Geno{
 
 		// crossover
 		for(unsigned int i=1; i<children_.size()/2; i++){
-			children_[2*i]->crossover(children_[2*i], children_[2*i+1]);
+			crossover_(children_[2*i], children_[2*i+1]);
 		}
 
 		// delete parents from original population

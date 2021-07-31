@@ -8,8 +8,8 @@
 using std::vector;
 
 namespace Geno{
-	BinaryArrayIndividual::BinaryArrayIndividual(const size_t gene_size, const Initializer &init, const CrossoverOperator &crossover, const MutateOperator &mutate) :
-	ArrayIndividual(gene_size, crossover, mutate),
+	BinaryArrayIndividual::BinaryArrayIndividual(const size_t gene_size, const Initializer &init) :
+	ArrayIndividual(gene_size),
 	init(init)
 	{
 		this->gtype = BINARY;	
@@ -65,18 +65,16 @@ namespace Geno{
 	}
 
 	BinaryArrayIndividual::Factory::Factory() :
-	IndividualFactory(),
+	IndividualFactory(BinaryArrayIndividual::uniformCrossover(), BinaryArrayIndividual::randomMutate()),
 	gene_size_(100),
-	init_(BinaryArrayIndividual::randomInitializer()),
-	crossover_(BinaryArrayIndividual::uniformCrossover()),
-	mutate_(BinaryArrayIndividual::randomMutate())
+	init_(BinaryArrayIndividual::randomInitializer())
 	{}
 
 	BinaryArrayIndividual::Factory::~Factory(){
 	}
 
 	Individual* BinaryArrayIndividual::Factory::create(){
-		return new BinaryArrayIndividual(gene_size_, init_, crossover_, mutate_);
+		return new BinaryArrayIndividual(gene_size_, init_);
 	}
 
 	BinaryArrayIndividual::Factory& BinaryArrayIndividual::Factory::geneSize(const size_t gene_size){
@@ -88,15 +86,4 @@ namespace Geno{
 		init_ = init;
 		return *this;
 	}
-
-	BinaryArrayIndividual::Factory& BinaryArrayIndividual::Factory::crossover(const CrossoverOperator &crossover){
-		crossover_ = crossover;
-		return *this;
-	}
-
-	BinaryArrayIndividual::Factory& BinaryArrayIndividual::Factory::mutate(const MutateOperator &mutate){
-		mutate_ = mutate;
-		return *this;
-	}
-
 }

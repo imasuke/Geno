@@ -13,13 +13,15 @@ namespace Geno{
 	public:
 		AlternationModel(){}
 		virtual ~AlternationModel(){}
-		virtual void makeChildren(Population *population, bool is_maximize) = 0;
+		virtual void makeChildren(Population *population, CrossoverOperator crossover, MutateOperator mutate, bool is_maximize) = 0;
 		virtual void alternatePopulation(Population *population, bool is_maximize) = 0;
 		virtual void mutateChildren(double mutation_rate);
 		virtual void evaluateChildren(const FitnessFunction &ff);
 
 	protected:
 		Population children_;
+		CrossoverOperator crossover_;
+		MutateOperator mutate_;
 	};
 
 	// Roulette Selection
@@ -27,7 +29,7 @@ namespace Geno{
 	public:
 		RouletteSelection();
 		~RouletteSelection();
-		void makeChildren(Population *population, bool is_maximize);
+		void makeChildren(Population *population, CrossoverOperator crossover, MutateOperator mutate, bool is_maximize);
 		void alternatePopulation(Population *population, bool is_maximize);
 	private:
 		void crossoverChildren(double crossover_rate);
@@ -38,7 +40,7 @@ namespace Geno{
 	public:
 		TournamentSelection(unsigned int tournament_size);
 		~TournamentSelection();
-		void makeChildren(Population *population, bool is_maximize);
+		void makeChildren(Population *population, CrossoverOperator crossover, MutateOperator mutate, bool is_maximize);
 		void alternatePopulation(Population *population, bool is_maximize);
 	private:
 		void crossoverChildren(double crossover_rate);
@@ -51,7 +53,7 @@ namespace Geno{
 	public:
 		MGG(size_t children_size);
 		~MGG();
-		void makeChildren(Population *population, bool is_maximize);
+		void makeChildren(Population *population, CrossoverOperator crossover, MutateOperator mutate, bool is_maximize);
 		void alternatePopulation(Population *population, bool is_maximize);
 	private:
 		Individual* findElite(bool is_maximize);

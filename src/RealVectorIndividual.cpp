@@ -6,8 +6,8 @@
 #include "Geno/ArrayCrossover.h"
 
 namespace Geno{
-	RealVectorIndividual::RealVectorIndividual(const size_t gene_size, const Initializer &init, const CrossoverOperator &crossover, const MutateOperator &mutate) :
-	ArrayIndividual(gene_size, crossover, mutate),
+	RealVectorIndividual::RealVectorIndividual(const size_t gene_size, const Initializer &init) :
+	ArrayIndividual(gene_size),
 	init(init)
 	{
 		this->gtype = REAL;	
@@ -65,10 +65,9 @@ namespace Geno{
 	}
 
 	RealVectorIndividual::Factory::Factory() :
+	IndividualFactory(RealVectorIndividual::blxAlphaCrossover(0.3), RealVectorIndividual::randomMutate(0.0, 1.0)),
 	gene_size_(100),
-	init_(RealVectorIndividual::randomInitializer(0.0, 1.0)),
-	crossover_(RealVectorIndividual::blxAlphaCrossover(0.3)), 
-	mutate_(RealVectorIndividual::randomMutate(0.0, 1.0))
+	init_(RealVectorIndividual::randomInitializer(0.0, 1.0))
 	{
 	}
 
@@ -76,7 +75,7 @@ namespace Geno{
 	}
 
 	Individual* RealVectorIndividual::Factory::create(){
-		return new RealVectorIndividual(gene_size_, init_, crossover_, mutate_);
+		return new RealVectorIndividual(gene_size_, init_);
 	}
 
 	RealVectorIndividual::Factory& RealVectorIndividual::Factory::geneSize(const size_t gene_size){
@@ -86,16 +85,6 @@ namespace Geno{
 
 	RealVectorIndividual::Factory& RealVectorIndividual::Factory::initializer(const Initializer &init){
 		init_ = init;
-		return *this;
-	}
-
-	RealVectorIndividual::Factory& RealVectorIndividual::Factory::crossover(const CrossoverOperator &crossover){
-		crossover_ = crossover;
-		return *this;
-	}
-
-	RealVectorIndividual::Factory& RealVectorIndividual::Factory::mutate(const MutateOperator &mutate){
-		mutate_ = mutate;
 		return *this;
 	}
 

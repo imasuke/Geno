@@ -38,8 +38,7 @@ namespace Geno{
 		observer->evolutionStarted(this);
 
 		do{
-			alt_model->makeChildren(&population, param->is_maximize);
-			//alt_model->crossoverChildren(param->crossover_rate);
+			alt_model->makeChildren(&population, factory->crossover(), factory->mutate(), param->is_maximize);
 			alt_model->mutateChildren(param->mutation_rate);
 			alt_model->evaluateChildren(ff);
 			alt_model->alternatePopulation(&population, param->is_maximize);

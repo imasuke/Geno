@@ -98,13 +98,13 @@ int main(void){
 	IntegerArrayIndividual::Factory factory;
 	factory.geneSize(CITY_POSITIONS.size())
 		.initializer(IntegerArrayIndividual::uniqueInitializer(0, CITY_POSITIONS.size()-1))
-		.crossover(IntegerArrayIndividual::orderCrossover())
+		.crossover(IntegerArrayIndividual::OrderCrossover())
 		.mutate(IntegerArrayIndividual::swapMutate());
 	TSPFitness ff;
 	GA ga(factory, ff);
 	MyObserver observer;
 	GA::Parameter param;
-	MGG mgg(20, 0.05);
+	MGG mgg(20, 0.20);
 
 	param.population_size = 100;
 	param.max_generation = 10000;

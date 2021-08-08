@@ -9,8 +9,7 @@
 #include "Geno/util.h"
 #include "Crossover.h"
 
-namespace Geno{
-	// Crossover template function
+namespace Geno::crossover{
 	template <class T>
 	void onePointCrossover(std::vector<T> *gene1, std::vector<T> *gene2, size_t gene_size) {
 		Randomizer rand;
@@ -162,6 +161,8 @@ namespace Geno{
 		OnePointCrossover(){
 			requiredParents_ = 2;
 		}
+		OnePointCrossover(const OnePointCrossover &c) : Crossover(c){
+		}
 		~OnePointCrossover(){
 		}
 		void operator()(Individual *ind1, Individual *ind2){
@@ -171,6 +172,9 @@ namespace Geno{
 				onePointCrossover(&(array_ind1->genotype), &(array_ind2->genotype), array_ind1->gene_size);
 			}
 		}
+		OnePointCrossover* clone(void){
+			return new OnePointCrossover(*this);
+		}
 	};
 
 	template <class T>
@@ -178,6 +182,8 @@ namespace Geno{
 	public:
 		TwoPointCrossover(){
 			requiredParents_ = 2;
+		}
+		TwoPointCrossover(const TwoPointCrossover &c) : Crossover(c){
 		}
 		~TwoPointCrossover(){
 		}
@@ -188,6 +194,9 @@ namespace Geno{
 				twoPointCrossover(&(array_ind1->genotype), &(array_ind2->genotype), array_ind1->gene_size);
 			}
 		}
+		TwoPointCrossover* clone(void){
+			return new TwoPointCrossover(*this);
+		}
 	};
 
 	template <class T>
@@ -195,6 +204,8 @@ namespace Geno{
 	public:
 		UniformCrossover(){
 			requiredParents_ = 2;
+		}
+		UniformCrossover(const UniformCrossover &c) : Crossover(c){
 		}
 		~UniformCrossover(){
 		}
@@ -205,6 +216,9 @@ namespace Geno{
 				uniformCrossover(&(array_ind1->genotype), &(array_ind2->genotype), array_ind1->gene_size);
 			}
 		}
+		UniformCrossover* clone(void){
+			return new UniformCrossover(*this);
+		}
 	};
 
 	template <class T>
@@ -212,6 +226,8 @@ namespace Geno{
 	public:
 		CyclicCrossover(){
 			requiredParents_ = 2;
+		}
+		CyclicCrossover(const CyclicCrossover &c) : Crossover(c){
 		}
 		~CyclicCrossover(){
 		}
@@ -222,6 +238,9 @@ namespace Geno{
 				cyclicCrossover(&(array_ind1->genotype), &(array_ind2->genotype), array_ind1->gene_size);
 			}
 		}
+		CyclicCrossover* clone(void){
+			return new CyclicCrossover(*this);
+		}
 	};
 
 	template <class T>
@@ -229,6 +248,8 @@ namespace Geno{
 	public:
 		PartiallyMappedCrossover(){
 			requiredParents_ = 2;
+		}
+		PartiallyMappedCrossover(const PartiallyMappedCrossover &c) : Crossover(c){
 		}
 		~PartiallyMappedCrossover(){
 		}
@@ -239,6 +260,9 @@ namespace Geno{
 				partiallyMappedCrossover(&(array_ind1->genotype), &(array_ind2->genotype), array_ind1->gene_size);
 			}
 		}
+		PartiallyMappedCrossover* clone(void){
+			return new PartiallyMappedCrossover(*this);
+		}
 	};
 
 	template <class T>
@@ -247,7 +271,8 @@ namespace Geno{
 		OrderCrossover(){
 			requiredParents_ = 2;
 		}
-
+		OrderCrossover(const OrderCrossover &c) : Crossover(c){
+		}
 		~OrderCrossover(){
 		}
 		void operator()(Individual *ind1, Individual *ind2){
@@ -257,6 +282,9 @@ namespace Geno{
 				orderCrossover(&(array_ind1->genotype), &(array_ind2->genotype), array_ind1->gene_size);
 			}
 		}
+		OrderCrossover* clone(void){
+			return new OrderCrossover(*this);
+		}
 	};
 
 	template <class T>
@@ -265,8 +293,13 @@ namespace Geno{
 		BlxAlphaCrossover(double alpha) : alpha_(alpha){
 			requiredParents_ = 2;
 		}
-
+		BlxAlphaCrossover(const BlxAlphaCrossover &c) : Crossover(c){
+			this->alpha_ = c.alpha_;
+		}
 		~BlxAlphaCrossover(){
+		}
+		BlxAlphaCrossover* clone(void){
+			return new BlxAlphaCrossover(*this);
 		}
 
 		void operator()(Individual *ind1, Individual *ind2){

@@ -58,30 +58,6 @@ namespace Geno{
 		};
 	}
 
-	Crossover* IntegerArrayIndividual::onePointCrossover(){
-		return new OnePointCrossover<IntegerArrayIndividual>();
-	}
-
-	Crossover* IntegerArrayIndividual::twoPointCrossover(){
-		return new TwoPointCrossover<IntegerArrayIndividual>();
-	}
-
-	Crossover* IntegerArrayIndividual::uniformCrossover(){
-		return new UniformCrossover<IntegerArrayIndividual>();
-	}
-
-	Crossover* IntegerArrayIndividual::cyclicCrossover(){
-		return new CyclicCrossover<IntegerArrayIndividual>();
-	}
-
-	Crossover* IntegerArrayIndividual::partiallyMappedCrossover(){
-		return new PartiallyMappedCrossover<IntegerArrayIndividual>();
-	}
-
-	Crossover* IntegerArrayIndividual::orderCrossover(){
-		return new PartiallyMappedCrossover<IntegerArrayIndividual>();
-	}
-
 	MutateOperator IntegerArrayIndividual::randomMutate(const int value_min, const int value_max){
 		return [value_min, value_max](Individual *ind){
 			Randomizer rand;
@@ -117,7 +93,7 @@ namespace Geno{
 	}
 
 	IntegerArrayIndividual::Factory::Factory():
-	IndividualFactory(IntegerArrayIndividual::uniformCrossover(), IntegerArrayIndividual::randomMutate(0, 10)),
+	IndividualFactory(IntegerArrayIndividual::UniformCrossover(), IntegerArrayIndividual::randomMutate(0, 10)),
 	gene_size_(100),
 	init_(IntegerArrayIndividual::randomInitializer(0, 10))
 	{

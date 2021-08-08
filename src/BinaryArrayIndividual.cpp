@@ -43,18 +43,6 @@ namespace Geno{
 		};
 	}
 
-	Crossover* BinaryArrayIndividual::onePointCrossover(){
-		return new OnePointCrossover<BinaryArrayIndividual>();
-	}
-
-	Crossover* BinaryArrayIndividual::twoPointCrossover(){
-		return new TwoPointCrossover<BinaryArrayIndividual>();
-	}
-
-	Crossover* BinaryArrayIndividual::uniformCrossover(){
-		return new UniformCrossover<BinaryArrayIndividual>();
-	}
-
 	MutateOperator BinaryArrayIndividual::randomMutate(){
 		return [](Individual *ind){
 			BinaryArrayIndividual *bind = (BinaryArrayIndividual*)ind;
@@ -65,7 +53,7 @@ namespace Geno{
 	}
 
 	BinaryArrayIndividual::Factory::Factory() :
-	IndividualFactory(BinaryArrayIndividual::uniformCrossover(), BinaryArrayIndividual::randomMutate()),
+	IndividualFactory(BinaryArrayIndividual::UniformCrossover(), BinaryArrayIndividual::randomMutate()),
 	gene_size_(100),
 	init_(BinaryArrayIndividual::randomInitializer())
 	{}

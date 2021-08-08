@@ -12,10 +12,16 @@ namespace Geno{
 		IndividualFactory(){}
 		IndividualFactory(Crossover *crossover, const MutateOperator &mutate) : crossover_(crossover), mutate_(mutate){
 		}
+		IndividualFactory(Crossover &&crossover, const MutateOperator &mutate) : crossover_(crossover.clone()), mutate_(mutate){
+		}
 		virtual ~IndividualFactory(){}
 		virtual Individual* create() = 0; 
 		IndividualFactory& crossover(Crossover *crossover){
 			crossover_ = crossover;
+			return *this;
+		}
+		IndividualFactory& crossover(Crossover &&crossover){
+			crossover_ = crossover.clone();
 			return *this;
 		}
 		Crossover* crossover(){

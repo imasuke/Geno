@@ -3,12 +3,19 @@
 #define INTEGER_ARRAY_INDIVIDUAL_HEADER
 
 #include "Geno/IndividualFactory.h"
+#include "Geno/ArrayCrossover.h"
 
 namespace Geno{
 	
 	class IntegerArrayIndividual : public ArrayIndividual<int>{
 	public:
 		typedef std::function <void(std::vector<int>*)> Initializer;
+		using OnePointCrossover = crossover::OnePointCrossover<IntegerArrayIndividual>;
+		using TwoPointCrossover = crossover::TwoPointCrossover<IntegerArrayIndividual>;
+		using UniformCrossover = crossover::UniformCrossover<IntegerArrayIndividual>;
+		using CyclicCrossover = crossover::CyclicCrossover<IntegerArrayIndividual>;
+		using PartiallyMappedCrossover = crossover::PartiallyMappedCrossover<IntegerArrayIndividual>;
+		using OrderCrossover = crossover::OrderCrossover<IntegerArrayIndividual>;
 
 		IntegerArrayIndividual(const size_t gene_size, const Initializer&);
 		IntegerArrayIndividual(const IntegerArrayIndividual&);
@@ -16,13 +23,6 @@ namespace Geno{
 		Individual* clone();
 		static Initializer randomInitializer(const int value_min, const int value_max);
 		static Initializer uniqueInitializer(const int value_min, const int value_max);
-		static Crossover* onePointCrossover();
-		static Crossover* twoPointCrossover();
-		static Crossover* uniformCrossover();
-		static Crossover* cyclicCrossover();
-		static Crossover* partiallyMappedCrossover();
-		static Crossover* orderCrossover();
-		static MutateOperator randomMutate();
 		static MutateOperator randomMutate(const int value_min, const int value_max);
 		static MutateOperator swapMutate();
 		static MutateOperator shuffleMutate();

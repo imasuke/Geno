@@ -38,21 +38,6 @@ namespace Geno{
 		};
 	}
 
-	Crossover* RealVectorIndividual::onePointCrossover(){
-		return new OnePointCrossover<RealVectorIndividual>();
-	}
-
-	Crossover* RealVectorIndividual::twoPointCrossover(){
-		return new TwoPointCrossover<RealVectorIndividual>();
-	}
-
-	Crossover* RealVectorIndividual::uniformCrossover(){
-		return new UniformCrossover<RealVectorIndividual>();
-	}
-
-	Crossover* RealVectorIndividual::blxAlphaCrossover(double alpha){
-		return new BlxAlphaCrossover<RealVectorIndividual>(alpha);
-	}
 
 	MutateOperator RealVectorIndividual::randomMutate(const double value_min, const double value_max){
 		return [value_min, value_max](Individual *ind){
@@ -65,7 +50,7 @@ namespace Geno{
 	}
 
 	RealVectorIndividual::Factory::Factory() :
-	IndividualFactory(RealVectorIndividual::blxAlphaCrossover(0.3), RealVectorIndividual::randomMutate(0.0, 1.0)),
+	IndividualFactory(RealVectorIndividual::BlxAlphaCrossover(0.3), RealVectorIndividual::randomMutate(0.0, 1.0)),
 	gene_size_(100),
 	init_(RealVectorIndividual::randomInitializer(0.0, 1.0))
 	{

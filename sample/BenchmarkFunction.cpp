@@ -70,7 +70,7 @@ int main(void){
 	RealVectorIndividual::Factory factory;
 	factory.geneSize(2)
 		.initializer(RealVectorIndividual::randomInitializer(-100, 100))
-		.crossover(RealVectorIndividual::blxAlphaCrossover(0.3))
+		.crossover(RealVectorIndividual::BlxAlphaCrossover(0.3))
 		.mutate(RealVectorIndividual::randomMutate(-100, 100));
 	GA ga(factory, rosenbrock);
 	MyObserver observer;

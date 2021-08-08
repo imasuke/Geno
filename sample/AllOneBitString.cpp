@@ -57,7 +57,7 @@ int main(void){
 	BinaryArrayIndividual::Factory factory;
 	factory.geneSize(100)
 		.initializer(BinaryArrayIndividual::randomInitializer())
-		.crossover(BinaryArrayIndividual::uniformCrossover())
+		.crossover(BinaryArrayIndividual::UniformCrossover())
 		.mutate(BinaryArrayIndividual::randomMutate());
 	GA ga(factory, countOneBit);
 	MyObserver observer;

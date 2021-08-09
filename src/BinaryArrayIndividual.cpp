@@ -3,7 +3,6 @@
 #include <utility>
 #include "Geno/BinaryArrayIndividual.h"
 #include "Geno/util.h"
-#include "Geno/ArrayCrossover.h"
 
 using std::vector;
 
@@ -11,7 +10,7 @@ namespace Geno{
 	BinaryArrayIndividual::BinaryArrayIndividual(const size_t gene_size, const Initializer &init) :
 	ArrayIndividual(gene_size)
 	{
-		this->gtype = BINARY;	
+		this->gtype_ = BINARY;	
 		genotype.resize(gene_size);
 		init(this);
 	}
@@ -41,35 +40,50 @@ namespace Geno{
 		};
 	}
 
-	MutateOperator BinaryArrayIndividual::randomMutate(){
-		return [](Individual *ind){
-			BinaryArrayIndividual *bind = (BinaryArrayIndividual*)ind;
-			for(unsigned int i=0; i<bind->genotype.size(); i++){
-				bind->genotype[i] = !bind->genotype[i];
-			}
-		};
-	}
+	using Factory = BinaryArrayIndividual::Factory;
+	using RandomMutation = BinaryArrayIndividual::RandomMutation;
 
-	BinaryArrayIndividual::Factory::Factory() :
-	IndividualFactory(BinaryArrayIndividual::UniformCrossover(), BinaryArrayIndividual::randomMutate()),
+	Factory::Factory() :
+	IndividualFactory(BinaryArrayIndividual::UniformCrossover(), BinaryArrayIndividual::RandomMutation()),
 	gene_size_(100),
 	init_(BinaryArrayIndividual::randomInitializer())
 	{}
 
-	BinaryArrayIndividual::Factory::~Factory(){
+	Factory::~Factory(){
 	}
 
-	Individual* BinaryArrayIndividual::Factory::create(){
+	Individual* Factory::create(){
 		return new BinaryArrayIndividual(gene_size_, init_);
 	}
 
-	BinaryArrayIndividual::Factory& BinaryArrayIndividual::Factory::geneSize(const size_t gene_size){
+	Factory& Factory::geneSize(const size_t gene_size){
 		gene_size_ = gene_size;
 		return *this;
 	}
 
-	BinaryArrayIndividual::Factory& BinaryArrayIndividual::Factory::initializer(const Initializer &init){
+	Factory& Factory::initializer(const Initializer &init){
 		init_ = init;
 		return *this;
+	}
+
+	RandomMutation::RandomMutation(){
+	}
+
+	RandomMutation::RandomMutation(const RandomMutation &c)
+	: Mutation(c){
+	}
+
+	RandomMutation::~RandomMutation(){
+	}
+
+	void RandomMutation::operator()(Individual *ind){
+		BinaryArrayIndividual *bind = (BinaryArrayIndividual*)ind;
+		for(unsigned int i=0; i<bind->genotype.size(); i++){
+			bind->genotype[i] = !bind->genotype[i];
+		}
+	}
+
+	RandomMutation* RandomMutation::clone(void){
+		return new RandomMutation(*this);
 	}
 }

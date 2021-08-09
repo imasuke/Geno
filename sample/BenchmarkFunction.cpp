@@ -71,7 +71,7 @@ int main(void){
 	factory.geneSize(2)
 		.initializer(RealVectorIndividual::randomInitializer(-100, 100))
 		.crossover(RealVectorIndividual::BlxAlphaCrossover(0.3))
-		.mutate(RealVectorIndividual::randomMutate(-100, 100));
+		.mutate(RealVectorIndividual::RandomMutation(-100, 100));
 	GA ga(factory, rosenbrock);
 	MyObserver observer;
 	GA::Parameter param;

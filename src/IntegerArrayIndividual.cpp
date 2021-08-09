@@ -3,7 +3,6 @@
 #include <utility>
 #include "Geno/IntegerArrayIndividual.h"
 #include "Geno/util.h"
-#include "Geno/ArrayCrossover.h"
 
 using std::vector;
 
@@ -11,7 +10,7 @@ namespace Geno{
 	IntegerArrayIndividual::IntegerArrayIndividual(const size_t gene_size, const Initializer &init) :
 	ArrayIndividual(gene_size)
 	{
-		this->gtype = INTEGER;	
+		this->gtype_ = INTEGER;	
 		genotype.resize(gene_size);
 		init(this);
 	}
@@ -56,61 +55,56 @@ namespace Geno{
 		};
 	}
 
-	MutateOperator IntegerArrayIndividual::randomMutate(const int value_min, const int value_max){
-		return [value_min, value_max](Individual *ind){
-			Randomizer rand;
-			IntegerArrayIndividual *iind = (IntegerArrayIndividual*)ind;
+	using Factory = IntegerArrayIndividual::Factory;
+	using RandomMutation = IntegerArrayIndividual::RandomMutation;
 
-			for(size_t i=0; i<iind->genotype.size(); i++){
-				iind->genotype[i] = rand.randomInt(value_min, value_max);
-			}
-		};
-	}
-
-	MutateOperator IntegerArrayIndividual::swapMutate(){
-		return [](Individual *ind){
-			Randomizer rand;
-			IntegerArrayIndividual *iind = (IntegerArrayIndividual*)ind;
-			unsigned int gene_size = iind->genotype.size();
-			std::swap(iind->genotype.at(rand.randomInt(gene_size-1)), iind->genotype.at(rand.randomInt(gene_size-1)));
-		};
-	}
-
-	MutateOperator IntegerArrayIndividual::shuffleMutate(){
-		return [](Individual *ind){
-			Randomizer rand;
-			IntegerArrayIndividual *iind = (IntegerArrayIndividual*)ind;	
-			std::random_device rd;
-			unsigned int rindex1, rindex2;
-
-			rindex1 = rand.randomInt(iind->genotype.size()-1);
-			rindex2 = rand.randomInt(iind->genotype.size()-1);
-			if(rindex1 > rindex2) std::swap(rindex1, rindex2);
-			std::shuffle(iind->genotype.begin()+rindex1 , iind->genotype.begin()+rindex2, std::mt19937(rd()));
-		};
-	}
-
-	IntegerArrayIndividual::Factory::Factory():
-	IndividualFactory(IntegerArrayIndividual::UniformCrossover(), IntegerArrayIndividual::randomMutate(0, 10)),
+	Factory::Factory():
+	IndividualFactory(IntegerArrayIndividual::UniformCrossover(), IntegerArrayIndividual::RandomMutation(0, 10)),
 	gene_size_(100),
 	init_(IntegerArrayIndividual::randomInitializer(0, 10))
 	{
 	}
 
-	IntegerArrayIndividual::Factory::~Factory(){
+	Factory::~Factory(){
 	}
 
-	Individual* IntegerArrayIndividual::Factory::create(){
+	Individual* Factory::create(){
 		return new IntegerArrayIndividual(gene_size_, init_);
 	}
 
-	IntegerArrayIndividual::Factory& IntegerArrayIndividual::Factory::geneSize(const size_t gene_size){
+	Factory& Factory::geneSize(const size_t gene_size){
 		gene_size_ = gene_size;
 		return *this;
 	}
 
-	IntegerArrayIndividual::Factory& IntegerArrayIndividual::Factory::initializer(const Initializer &init){
+	Factory& Factory::initializer(const Initializer &init){
 		init_ = init;
 		return *this;
+	}
+
+	RandomMutation::RandomMutation(const int value_min, const int value_max):
+	value_min_(value_min), value_max_(value_max){
+	}
+
+	RandomMutation::RandomMutation(const RandomMutation &c)
+	: Mutation(c){
+		this->value_min_ = c.value_min_;
+		this->value_max_ = c.value_max_;
+	}
+
+	RandomMutation::~RandomMutation(){
+	}
+
+	void RandomMutation::operator()(Individual *ind){
+		Randomizer rand;
+		IntegerArrayIndividual *iind = (IntegerArrayIndividual*)ind;
+
+		for(size_t i=0; i<iind->genotype.size(); i++){
+			iind->genotype[i] = rand.randomInt(value_min_, value_max_);
+		}
+	}
+
+	RandomMutation* RandomMutation::clone(void){
+		return new RandomMutation(*this);
 	}
 }

@@ -4,6 +4,7 @@
 
 #include "Geno/IndividualFactory.h"
 #include "Geno/ArrayCrossover.h"
+#include "Geno/ArrayMutation.h"
 
 namespace Geno{
 	
@@ -13,13 +14,14 @@ namespace Geno{
 		using OnePointCrossover = crossover::OnePointCrossover<BinaryArrayIndividual>;
 		using TwoPointCrossover = crossover::TwoPointCrossover<BinaryArrayIndividual>;
 		using UniformCrossover = crossover::UniformCrossover<BinaryArrayIndividual>;
+		using SwapMutation = mutation::SwapMutation<BinaryArrayIndividual>;
+		using ShuffleMutation = mutation::ShuffleMutation<BinaryArrayIndividual>;
 
 		BinaryArrayIndividual(const size_t gene_size, const Initializer&);
 		BinaryArrayIndividual(const BinaryArrayIndividual&);
 		~BinaryArrayIndividual();
 		Individual* clone();
 		static Initializer randomInitializer();
-		static MutateOperator randomMutate();
 
 		class Factory : public IndividualFactory{
 		public:
@@ -32,6 +34,15 @@ namespace Geno{
 		private:
 			size_t gene_size_;
 			Initializer init_;
+		};
+
+		class RandomMutation : public Mutation{
+		public:
+			RandomMutation();
+			RandomMutation(const RandomMutation &c);
+			~RandomMutation();
+			void operator()(Individual *ind);
+			RandomMutation* clone(void);
 		};
 	};
 }

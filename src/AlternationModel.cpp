@@ -9,7 +9,7 @@ namespace Geno{
 		Randomizer rand;
 		for(unsigned int i=0; i<children_.size(); i++){
 			if(rand.randomDouble(1.0) < mutation_rate){
-				ops_.mutate(children_[i]);
+				(*ops_.mutate)(children_[i]);
 			}
 		}	
 	}

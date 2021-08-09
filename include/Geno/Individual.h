@@ -7,30 +7,38 @@
 
 namespace Geno{
 	class Individual;
-	typedef std::function <void(Individual*)> MutateOperator;
 	typedef std::function <double(const Individual&)> FitnessFunction;
 	typedef std::vector<Individual*> Population;
 
 	// Abstract Individual class
 	class Individual{
 	public:
-		Individual() :
-		 fitness(0.0), form(FORM_UNDEF), gtype(TYPE_UNDEF) {}
-		Individual(const Individual &c) {
-			fitness = c.fitness;
-			form = c.form;
-			gtype = c.gtype;
-		}
-		virtual ~Individual(){}
-		virtual Individual* clone() = 0;
-
-	public:
 		enum GenotypeForm {ARRAY, TREE, FORM_UNDEF};
 		enum GeneType {REAL, INTEGER, BINARY, MIX, TYPE_UNDEF};
 
+		Individual() :
+		 fitness(0.0), form_(FORM_UNDEF), gtype_(TYPE_UNDEF) {}
+		Individual(const GenotypeForm &form, const GeneType &gtype):
+		 fitness(0.0), form_(form), gtype_(gtype){}
+		Individual(const Individual &c) {
+			fitness = c.fitness;
+			form_ = c.form_;
+			gtype_ = c.gtype_;
+		}
+		virtual ~Individual(){}
+		virtual Individual* clone() = 0;
+		const GenotypeForm& genotypeForm(){
+			return form_;
+		}
+		const GeneType& genotype(){
+			return gtype_;
+		}
+
+	public:
 		double fitness;
-		GenotypeForm form;
-		GeneType gtype;
+	protected:
+		GenotypeForm form_;
+		GeneType gtype_;
 	};
 
 	// Abstract Individual class that has array genotype
@@ -38,8 +46,7 @@ namespace Geno{
 	class ArrayIndividual : public Individual{
 	public:
 		ArrayIndividual(const size_t gene_size) :
-		 Individual(), gene_size(gene_size) {
-		 	this->form = ARRAY;
+		 Individual(ARRAY, TYPE_UNDEF), gene_size(gene_size) {
 		 }
 		ArrayIndividual(const ArrayIndividual &c) :
 		 Individual(c)

@@ -3,13 +3,12 @@
 #include <utility>
 #include "Geno/RealVectorIndividual.h"
 #include "Geno/util.h"
-#include "Geno/ArrayCrossover.h"
 
 namespace Geno{
 	RealVectorIndividual::RealVectorIndividual(const size_t gene_size, const Initializer &init) :
 	ArrayIndividual(gene_size)
 	{
-		this->gtype = REAL;	
+		this->gtype_ = REAL;	
 		genotype.resize(gene_size);
 		init(this);
 	}
@@ -36,38 +35,55 @@ namespace Geno{
 		};
 	}
 
-	MutateOperator RealVectorIndividual::randomMutate(const double value_min, const double value_max){
-		return [value_min, value_max](Individual *ind){
-			Randomizer rand;
-			RealVectorIndividual *rind = (RealVectorIndividual*)ind;
-			for(size_t i=0; i<rind->genotype.size(); i++){
-				rind->genotype[i] = rand.randomDouble(value_min, value_max);
-			}
-		};
-	}
+	using Factory = RealVectorIndividual::Factory;
+	using RandomMutation = RealVectorIndividual::RandomMutation;
 
-	RealVectorIndividual::Factory::Factory() :
-	IndividualFactory(RealVectorIndividual::BlxAlphaCrossover(0.3), RealVectorIndividual::randomMutate(0.0, 1.0)),
+	Factory::Factory() :
+	IndividualFactory(RealVectorIndividual::BlxAlphaCrossover(0.3), RealVectorIndividual::RandomMutation(0.0, 1.0)),
 	gene_size_(100),
 	init_(RealVectorIndividual::randomInitializer(0.0, 1.0))
 	{
 	}
 
-	RealVectorIndividual::Factory::~Factory(){
+	Factory::~Factory(){
 	}
 
-	Individual* RealVectorIndividual::Factory::create(){
+	Individual* Factory::create(){
 		return new RealVectorIndividual(gene_size_, init_);
 	}
 
-	RealVectorIndividual::Factory& RealVectorIndividual::Factory::geneSize(const size_t gene_size){
+	Factory& Factory::geneSize(const size_t gene_size){
 		gene_size_ = gene_size;
 		return *this;
 	}
 
-	RealVectorIndividual::Factory& RealVectorIndividual::Factory::initializer(const Initializer &init){
+	Factory& Factory::initializer(const Initializer &init){
 		init_ = init;
 		return *this;
 	}
 
+	RandomMutation::RandomMutation(const double value_min, const double value_max):
+	value_min_(value_min), value_max_(value_max){
+	}
+
+	RandomMutation::RandomMutation(const RandomMutation &c)
+	: Mutation(c){
+		this->value_min_ = c.value_min_;
+		this->value_max_ = c.value_max_;
+	}
+
+	RandomMutation::~RandomMutation(){
+	}
+
+	void RandomMutation::operator()(Individual *ind){
+		Randomizer rand;
+		RealVectorIndividual *rind = (RealVectorIndividual*)ind;
+		for(size_t i=0; i<rind->genotype.size(); i++){
+			rind->genotype[i] = rand.randomDouble(value_min_, value_max_);
+		}
+	}
+
+	RandomMutation* RandomMutation::clone(void){
+		return new RandomMutation(*this);
+	}
 }

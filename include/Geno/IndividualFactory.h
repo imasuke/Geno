@@ -4,15 +4,16 @@
 
 #include "Individual.h"
 #include "Crossover.h"
+#include "Mutation.h"
 
 namespace Geno{
 	// Abstract Factory class
 	class IndividualFactory{
 	public:
 		IndividualFactory(){}
-		IndividualFactory(Crossover *crossover, const MutateOperator &mutate) : crossover_(crossover), mutate_(mutate){
+		IndividualFactory(Crossover *crossover, Mutation *mutate) : crossover_(crossover), mutate_(mutate){
 		}
-		IndividualFactory(Crossover &&crossover, const MutateOperator &mutate) : crossover_(crossover.clone()), mutate_(mutate){
+		IndividualFactory(Crossover &&crossover, Mutation &&mutate) : crossover_(crossover.clone()), mutate_(mutate.clone()){
 		}
 		virtual ~IndividualFactory(){}
 		virtual Individual* create() = 0; 
@@ -27,16 +28,20 @@ namespace Geno{
 		Crossover* crossover(){
 			return crossover_;
 		}
-		IndividualFactory& mutate(const MutateOperator &mutate){
+		IndividualFactory& mutate(Mutation *mutate){
 			mutate_ = mutate;
 			return *this;
 		}
-		MutateOperator mutate(){
+		IndividualFactory& mutate(Mutation &&mutate){
+			mutate_ = mutate.clone();
+			return *this;
+		}
+		Mutation* mutate(){
 			return mutate_;
 		}
 	private:
 		Crossover *crossover_;
-		MutateOperator mutate_;
+		Mutation *mutate_;
 	};
 }
 

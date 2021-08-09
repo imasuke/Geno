@@ -6,6 +6,7 @@
 
 #include "Individual.h"
 #include "Crossover.h"
+#include "Mutation.h"
 
 namespace Geno{
 
@@ -14,7 +15,7 @@ namespace Geno{
 	public:
 		typedef struct{
 			Crossover *crossover;
-			MutateOperator mutate;
+			Mutation *mutate;
 			FitnessFunction ff;
 		} OperatorSet;
 

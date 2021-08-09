@@ -4,6 +4,7 @@
 
 #include "Geno/IndividualFactory.h"
 #include "Geno/ArrayCrossover.h"
+#include "Geno/ArrayMutation.h"
 
 namespace Geno{
 	
@@ -16,6 +17,8 @@ namespace Geno{
 		using CyclicCrossover = crossover::CyclicCrossover<IntegerArrayIndividual>;
 		using PartiallyMappedCrossover = crossover::PartiallyMappedCrossover<IntegerArrayIndividual>;
 		using OrderCrossover = crossover::OrderCrossover<IntegerArrayIndividual>;
+		using SwapMutation = mutation::SwapMutation<IntegerArrayIndividual>;
+		using ShuffleMutation = mutation::ShuffleMutation<IntegerArrayIndividual>;
 
 		IntegerArrayIndividual(const size_t gene_size, const Initializer&);
 		IntegerArrayIndividual(const IntegerArrayIndividual&);
@@ -23,9 +26,6 @@ namespace Geno{
 		Individual* clone();
 		static Initializer randomInitializer(const int value_min, const int value_max);
 		static Initializer uniqueInitializer(const int value_min, const int value_max);
-		static MutateOperator randomMutate(const int value_min, const int value_max);
-		static MutateOperator swapMutate();
-		static MutateOperator shuffleMutate();
 
 		class Factory : public IndividualFactory{
 		public:
@@ -37,6 +37,18 @@ namespace Geno{
 		private:
 			size_t gene_size_;
 			Initializer init_;
+		};
+
+		class RandomMutation : public Mutation{
+		public:
+			RandomMutation(const int value_min, const int value_max);
+			RandomMutation(const RandomMutation &c);
+			~RandomMutation();
+			void operator()(Individual *ind);
+			RandomMutation* clone(void);
+		private:
+			int value_min_;
+			int value_max_;
 		};
 	};
 }

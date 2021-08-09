@@ -156,12 +156,12 @@ namespace Geno::crossover{
 
 	// Crossover template class
 	template <class T>
-	class OnePointCrossover : public Crossover{
+	class OnePointCrossover : public Crossover2p{
 	public:
 		OnePointCrossover(){
 			requiredParents_ = 2;
 		}
-		OnePointCrossover(const OnePointCrossover &c) : Crossover(c){
+		OnePointCrossover(const OnePointCrossover &c) : Crossover2p(c){
 		}
 		~OnePointCrossover(){
 		}
@@ -178,12 +178,12 @@ namespace Geno::crossover{
 	};
 
 	template <class T>
-	class TwoPointCrossover : public Crossover{
+	class TwoPointCrossover : public Crossover2p{
 	public:
 		TwoPointCrossover(){
 			requiredParents_ = 2;
 		}
-		TwoPointCrossover(const TwoPointCrossover &c) : Crossover(c){
+		TwoPointCrossover(const TwoPointCrossover &c) : Crossover2p(c){
 		}
 		~TwoPointCrossover(){
 		}
@@ -200,12 +200,12 @@ namespace Geno::crossover{
 	};
 
 	template <class T>
-	class UniformCrossover : public Crossover{
+	class UniformCrossover : public Crossover2p{
 	public:
 		UniformCrossover(){
 			requiredParents_ = 2;
 		}
-		UniformCrossover(const UniformCrossover &c) : Crossover(c){
+		UniformCrossover(const UniformCrossover &c) : Crossover2p(c){
 		}
 		~UniformCrossover(){
 		}
@@ -222,12 +222,12 @@ namespace Geno::crossover{
 	};
 
 	template <class T>
-	class CyclicCrossover : public Crossover{
+	class CyclicCrossover : public Crossover2p{
 	public:
 		CyclicCrossover(){
 			requiredParents_ = 2;
 		}
-		CyclicCrossover(const CyclicCrossover &c) : Crossover(c){
+		CyclicCrossover(const CyclicCrossover &c) : Crossover2p(c){
 		}
 		~CyclicCrossover(){
 		}
@@ -244,12 +244,12 @@ namespace Geno::crossover{
 	};
 
 	template <class T>
-	class PartiallyMappedCrossover : public Crossover{
+	class PartiallyMappedCrossover : public Crossover2p{
 	public:
 		PartiallyMappedCrossover(){
 			requiredParents_ = 2;
 		}
-		PartiallyMappedCrossover(const PartiallyMappedCrossover &c) : Crossover(c){
+		PartiallyMappedCrossover(const PartiallyMappedCrossover &c) : Crossover2p(c){
 		}
 		~PartiallyMappedCrossover(){
 		}
@@ -266,12 +266,12 @@ namespace Geno::crossover{
 	};
 
 	template <class T>
-	class OrderCrossover : public Crossover{
+	class OrderCrossover : public Crossover2p{
 	public:
 		OrderCrossover(){
 			requiredParents_ = 2;
 		}
-		OrderCrossover(const OrderCrossover &c) : Crossover(c){
+		OrderCrossover(const OrderCrossover &c) : Crossover2p(c){
 		}
 		~OrderCrossover(){
 		}
@@ -288,12 +288,12 @@ namespace Geno::crossover{
 	};
 
 	template <class T>
-	class BlxAlphaCrossover : public Crossover{
+	class BlxAlphaCrossover : public Crossover2p{
 	public:
 		BlxAlphaCrossover(double alpha) : alpha_(alpha){
 			requiredParents_ = 2;
 		}
-		BlxAlphaCrossover(const BlxAlphaCrossover &c) : Crossover(c){
+		BlxAlphaCrossover(const BlxAlphaCrossover &c) : Crossover2p(c){
 			this->alpha_ = c.alpha_;
 		}
 		~BlxAlphaCrossover(){

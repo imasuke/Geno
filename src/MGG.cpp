@@ -23,9 +23,17 @@ namespace Geno{
 			else
 				children_[i] = parent2->clone();
 		}
+
 		// crossover
-		for(unsigned int i=1; i<children_.size()/2; i++){
-			(*ops_.crossover)(children_[2*i], children_[2*i+1]);
+		if(ops_.crossover->requiredParents() == 2){
+			// 2 parents crossover
+			Crossover2p *crossover = (Crossover2p*)ops_.crossover;
+			for(unsigned int i=1; i<children_.size()/2; i++){
+				(*crossover)(children_[2*i], children_[2*i+1]);
+			}
+		}
+		else{
+			// Todo
 		}
 	}
 

@@ -41,13 +41,21 @@ namespace Geno{
 		std::random_device rd;
 		std::shuffle(rand_indexes.begin(), rand_indexes.end(), std::mt19937(rd()));
 
-		// Choice the pair of individuals randomly
-		for(unsigned int i=0; i < rand_indexes.size()/2; i++){
-			if(rand.randomDouble(1.0) < crossover_rate){
-				int ind1 = rand_indexes[2*i];
-				int ind2 = rand_indexes[2*i+1];
-				(*ops_.crossover)(children_[ind1], children_[ind2]);
+		if(ops_.crossover->requiredParents() == 2){
+			// 2 parents crossover
+			Crossover2p *crossover = (Crossover2p*)ops_.crossover;
+
+			// Choice the pair of individuals randomly
+			for(unsigned int i=0; i < rand_indexes.size()/2; i++){
+				if(rand.randomDouble(1.0) < crossover_rate){
+					int ind1 = rand_indexes[2*i];
+					int ind2 = rand_indexes[2*i+1];
+					(*crossover)(children_[ind1], children_[ind2]);
+				}
 			}
+		}
+		else{
+			// Todo
 		}
 	}
 }

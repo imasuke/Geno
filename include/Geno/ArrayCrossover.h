@@ -166,7 +166,7 @@ namespace Geno::crossover{
 		~OnePointCrossover(){
 		}
 		void operator()(Individual *ind1, Individual *ind2){
-			if(ind1->genotypeForm() == Individual::ARRAY && ind2->genotypeForm() == Individual::ARRAY){
+			if(ind1->genotype() == Individual::ARRAY && ind2->genotype() == Individual::ARRAY){
 				T *array_ind1 = static_cast<T*>(ind1);
 				T *array_ind2 = static_cast<T*>(ind2);
 				onePointCrossover(&(array_ind1->genotype), &(array_ind2->genotype), array_ind1->gene_size);
@@ -188,7 +188,7 @@ namespace Geno::crossover{
 		~TwoPointCrossover(){
 		}
 		void operator()(Individual *ind1, Individual *ind2){
-			if(ind1->genotypeForm() == Individual::ARRAY && ind2->genotypeForm() == Individual::ARRAY){
+			if(ind1->genotype() == Individual::ARRAY && ind2->genotype() == Individual::ARRAY){
 				T *array_ind1 = static_cast<T*>(ind1);
 				T *array_ind2 = static_cast<T*>(ind2);
 				twoPointCrossover(&(array_ind1->genotype), &(array_ind2->genotype), array_ind1->gene_size);
@@ -210,7 +210,7 @@ namespace Geno::crossover{
 		~UniformCrossover(){
 		}
 		void operator()(Individual *ind1, Individual *ind2){
-			if(ind1->genotypeForm() == Individual::ARRAY && ind2->genotypeForm() == Individual::ARRAY){
+			if(ind1->genotype() == Individual::ARRAY && ind2->genotype() == Individual::ARRAY){
 				T *array_ind1 = static_cast<T*>(ind1);
 				T *array_ind2 = static_cast<T*>(ind2);
 				uniformCrossover(&(array_ind1->genotype), &(array_ind2->genotype), array_ind1->gene_size);
@@ -232,7 +232,7 @@ namespace Geno::crossover{
 		~CyclicCrossover(){
 		}
 		void operator()(Individual *ind1, Individual *ind2){
-			if(ind1->genotypeForm() == Individual::ARRAY && ind2->genotypeForm() == Individual::ARRAY){
+			if(ind1->genotype() == Individual::ARRAY && ind2->genotype() == Individual::ARRAY){
 				T *array_ind1 = static_cast<T*>(ind1);
 				T *array_ind2 = static_cast<T*>(ind2);
 				cyclicCrossover(&(array_ind1->genotype), &(array_ind2->genotype), array_ind1->gene_size);
@@ -254,7 +254,7 @@ namespace Geno::crossover{
 		~PartiallyMappedCrossover(){
 		}
 		void operator()(Individual *ind1, Individual *ind2){
-			if(ind1->genotypeForm() == Individual::ARRAY && ind2->genotypeForm() == Individual::ARRAY){
+			if(ind1->genotype() == Individual::ARRAY && ind2->genotype() == Individual::ARRAY){
 				T *array_ind1 = static_cast<T*>(ind1);
 				T *array_ind2 = static_cast<T*>(ind2);
 				partiallyMappedCrossover(&(array_ind1->genotype), &(array_ind2->genotype), array_ind1->gene_size);
@@ -276,7 +276,7 @@ namespace Geno::crossover{
 		~OrderCrossover(){
 		}
 		void operator()(Individual *ind1, Individual *ind2){
-			if(ind1->genotypeForm() == Individual::ARRAY && ind2->genotypeForm() == Individual::ARRAY){
+			if(ind1->genotype() == Individual::ARRAY && ind2->genotype() == Individual::ARRAY){
 				T *array_ind1 = static_cast<T*>(ind1);
 				T *array_ind2 = static_cast<T*>(ind2);
 				orderCrossover(&(array_ind1->genotype), &(array_ind2->genotype), array_ind1->gene_size);
@@ -303,8 +303,8 @@ namespace Geno::crossover{
 		}
 
 		void operator()(Individual *ind1, Individual *ind2){
-			if(ind1->genotypeForm() == Individual::ARRAY && ind1->genotype() == Individual::REAL 
-			 && ind2->genotypeForm() == Individual::ARRAY && ind2->genotype() == Individual::REAL){
+			if(ind1->genotype() == Individual::ARRAY && ind1->genetype() == Individual::REAL 
+			 && ind2->genotype() == Individual::ARRAY && ind2->genetype() == Individual::REAL){
 				T *rind1 = static_cast<T*>(ind1);
 				T *rind2 = static_cast<T*>(ind2);
 				blxAlphaCrossover(rind1, rind2);

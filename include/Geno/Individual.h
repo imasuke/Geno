@@ -17,28 +17,28 @@ namespace Geno{
 		enum GeneType {REAL, INTEGER, BINARY, MIX, TYPE_UNDEF};
 
 		Individual() :
-		 fitness(0.0), form_(FORM_UNDEF), gtype_(TYPE_UNDEF) {}
-		Individual(const GenotypeForm &form, const GeneType &gtype):
-		 fitness(0.0), form_(form), gtype_(gtype){}
+		 fitness(0.0), form_(FORM_UNDEF), gene_(TYPE_UNDEF) {}
+		Individual(const GenotypeForm &form, const GeneType &gene):
+		 fitness(0.0), form_(form), gene_(gene){}
 		Individual(const Individual &c) {
 			fitness = c.fitness;
 			form_ = c.form_;
-			gtype_ = c.gtype_;
+			gene_ = c.gene_;
 		}
 		virtual ~Individual(){}
 		virtual Individual* clone() = 0;
-		const GenotypeForm& genotypeForm(){
+		const GenotypeForm& genotype(){
 			return form_;
 		}
-		const GeneType& genotype(){
-			return gtype_;
+		const GeneType& genetype(){
+			return gene_;
 		}
 
 	public:
 		double fitness;
 	protected:
 		GenotypeForm form_;
-		GeneType gtype_;
+		GeneType gene_;
 	};
 
 	// Abstract Individual class that has array genotype

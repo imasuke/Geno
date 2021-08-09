@@ -10,7 +10,7 @@ namespace Geno{
 	BinaryArrayIndividual::BinaryArrayIndividual(const size_t gene_size, const Initializer &init) :
 	ArrayIndividual(gene_size)
 	{
-		this->gtype_ = BINARY;	
+		this->gene_ = BINARY;	
 		genotype.resize(gene_size);
 		init(this);
 	}

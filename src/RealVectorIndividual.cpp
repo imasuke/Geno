@@ -8,7 +8,7 @@ namespace Geno{
 	RealVectorIndividual::RealVectorIndividual(const size_t gene_size, const Initializer &init) :
 	ArrayIndividual(gene_size)
 	{
-		this->gtype_ = REAL;	
+		this->gene_ = REAL;	
 		genotype.resize(gene_size);
 		init(this);
 	}

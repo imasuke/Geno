@@ -10,7 +10,7 @@ namespace Geno{
 	IntegerArrayIndividual::IntegerArrayIndividual(const size_t gene_size, const Initializer &init) :
 	ArrayIndividual(gene_size)
 	{
-		this->gtype_ = INTEGER;	
+		this->gene_ = INTEGER;	
 		genotype.resize(gene_size);
 		init(this);
 	}

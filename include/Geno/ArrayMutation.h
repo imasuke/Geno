@@ -21,7 +21,7 @@ namespace Geno::mutation{
 		~SwapMutation(){
 		}
 		void operator()(Individual *ind){
-			if(ind->genotypeForm() == Individual::ARRAY){
+			if(ind->genotype() == Individual::ARRAY){
 				T *array_ind = static_cast<T*>(ind);
                 unsigned int gene_size = array_ind->genotype.size();
                 Randomizer rand;
@@ -43,7 +43,7 @@ namespace Geno::mutation{
 		~ShuffleMutation(){
 		}
 		void operator()(Individual *ind){
-			if(ind->genotypeForm() == Individual::ARRAY){
+			if(ind->genotype() == Individual::ARRAY){
 				T *array_ind = static_cast<T*>(ind);
                 unsigned int gene_size = array_ind->genotype.size();
                 Randomizer rand;

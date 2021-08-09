@@ -9,7 +9,7 @@ namespace Geno{
 	
 	class BinaryArrayIndividual : public ArrayIndividual<bool>{
 	public:
-		typedef std::function <void(std::vector<bool>*)> Initializer;
+		using Initializer = std::function <void(BinaryArrayIndividual*)>;
 		using OnePointCrossover = crossover::OnePointCrossover<BinaryArrayIndividual>;
 		using TwoPointCrossover = crossover::TwoPointCrossover<BinaryArrayIndividual>;
 		using UniformCrossover = crossover::UniformCrossover<BinaryArrayIndividual>;
@@ -33,9 +33,6 @@ namespace Geno{
 			size_t gene_size_;
 			Initializer init_;
 		};
-
-	public:
-		Initializer init;
 	};
 }
 

@@ -9,18 +9,16 @@ using std::vector;
 
 namespace Geno{
 	IntegerArrayIndividual::IntegerArrayIndividual(const size_t gene_size, const Initializer &init) :
-	ArrayIndividual(gene_size),
-	init(init)
+	ArrayIndividual(gene_size)
 	{
 		this->gtype = INTEGER;	
 		genotype.resize(gene_size);
-		init(&genotype);
+		init(this);
 	}
 
 	IntegerArrayIndividual::IntegerArrayIndividual(const IntegerArrayIndividual &c) :
 	ArrayIndividual(c)
 	{
-		this->init = c.init;
 	}
 
 	IntegerArrayIndividual::~IntegerArrayIndividual(){
@@ -32,24 +30,24 @@ namespace Geno{
 	}
 
 	IntegerArrayIndividual::Initializer IntegerArrayIndividual::randomInitializer(const int value_min, const int value_max){
-		return [value_min, value_max](vector<int> *genotype){
+		return [value_min, value_max](IntegerArrayIndividual *ind){
 			Randomizer rand;
-			for(size_t i=0; i<genotype->size(); i++){
-				genotype->at(i) = rand.randomInt(value_min, value_max);
+			for(size_t i=0; i < ind->genotype.size(); i++){
+				ind->genotype.at(i) = rand.randomInt(value_min, value_max);
 			}
 		};
 	}
 
 	IntegerArrayIndividual::Initializer IntegerArrayIndividual::uniqueInitializer(const int value_min, const int value_max){
-		return [value_min, value_max](vector<int> *genotype){
+		return [value_min, value_max](IntegerArrayIndividual *ind){
 			vector<int> list(value_max-value_min+1);
 			std::random_device rd;
 			std::iota(list.begin(), list.end(), value_min);
 			std::shuffle(list.begin(), list.end(), std::mt19937(rd()));
 
 			auto it = list.begin();
-			for(size_t i=0; i<genotype->size(); i++){
-				genotype->at(i) = *it;
+			for(size_t i=0; i < ind->genotype.size(); i++){
+				ind->genotype.at(i) = *it;
 				if(it == list.end()){
 					it = list.begin();
 				}

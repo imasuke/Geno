@@ -9,7 +9,7 @@ namespace Geno{
 	
 	class RealVectorIndividual : public ArrayIndividual<double>{
 	public:
-		typedef std::function <void(std::vector<double>*)> Initializer;
+		using Initializer = std::function <void(RealVectorIndividual*)>;
 		using OnePointCrossover = crossover::OnePointCrossover<RealVectorIndividual>;
 		using TwoPointCrossover = crossover::TwoPointCrossover<RealVectorIndividual>;
 		using UniformCrossover = crossover::UniformCrossover<RealVectorIndividual>;
@@ -34,9 +34,6 @@ namespace Geno{
 			size_t gene_size_;
 			Initializer init_;
 		};
-
-	public:
-		Initializer init;
 	};
 }
 

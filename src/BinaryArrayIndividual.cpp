@@ -9,18 +9,16 @@ using std::vector;
 
 namespace Geno{
 	BinaryArrayIndividual::BinaryArrayIndividual(const size_t gene_size, const Initializer &init) :
-	ArrayIndividual(gene_size),
-	init(init)
+	ArrayIndividual(gene_size)
 	{
 		this->gtype = BINARY;	
 		genotype.resize(gene_size);
-		init(&genotype);
+		init(this);
 	}
 
 	BinaryArrayIndividual::BinaryArrayIndividual(const BinaryArrayIndividual &c) :
 	ArrayIndividual(c)
 	{
-		this->init = c.init;
 	}
 
 	BinaryArrayIndividual::~BinaryArrayIndividual(){
@@ -32,13 +30,13 @@ namespace Geno{
 	}
 
 	BinaryArrayIndividual::Initializer BinaryArrayIndividual::randomInitializer(){
-		return [](vector<bool> *gene){
+		return [](BinaryArrayIndividual *ind){
 			Randomizer rand;
-			for(size_t i=0; i<gene->size(); i++){
+			for(size_t i=0; i< ind->genotype.size(); i++){
 				if(rand.randomDouble(1.0) > 0.5)
-					gene->at(i) = true;
+					ind->genotype.at(i) = true;
 				else
-					gene->at(i) = false;
+					ind->genotype.at(i) = false;
 			}
 		};
 	}

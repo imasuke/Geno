@@ -9,7 +9,7 @@ namespace Geno{
 	
 	class IntegerArrayIndividual : public ArrayIndividual<int>{
 	public:
-		typedef std::function <void(std::vector<int>*)> Initializer;
+		using Initializer = std::function <void(IntegerArrayIndividual*)>;
 		using OnePointCrossover = crossover::OnePointCrossover<IntegerArrayIndividual>;
 		using TwoPointCrossover = crossover::TwoPointCrossover<IntegerArrayIndividual>;
 		using UniformCrossover = crossover::UniformCrossover<IntegerArrayIndividual>;
@@ -38,9 +38,6 @@ namespace Geno{
 			size_t gene_size_;
 			Initializer init_;
 		};
-
-	public:
-		Initializer init;
 	};
 }
 

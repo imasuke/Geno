@@ -7,18 +7,16 @@
 
 namespace Geno{
 	RealVectorIndividual::RealVectorIndividual(const size_t gene_size, const Initializer &init) :
-	ArrayIndividual(gene_size),
-	init(init)
+	ArrayIndividual(gene_size)
 	{
 		this->gtype = REAL;	
 		genotype.resize(gene_size);
-		init(&genotype);
+		init(this);
 	}
 
 	RealVectorIndividual::RealVectorIndividual(const RealVectorIndividual &c) :
 	ArrayIndividual(c)
 	{
-		this->init = c.init;
 	}
 
 	RealVectorIndividual::~RealVectorIndividual(){
@@ -30,14 +28,13 @@ namespace Geno{
 	}
 
 	RealVectorIndividual::Initializer RealVectorIndividual::randomInitializer(const double value_min, const double value_max){
-		return [value_min, value_max](std::vector<double> *genotype){
+		return [value_min, value_max](RealVectorIndividual *ind){
 			Randomizer rand;
-			for(size_t i=0; i<genotype->size(); i++){
-				genotype->at(i) = rand.randomDouble(value_min, value_max);
+			for(size_t i=0; i< ind->genotype.size(); i++){
+				ind->genotype.at(i) = rand.randomDouble(value_min, value_max);
 			}
 		};
 	}
-
 
 	MutateOperator RealVectorIndividual::randomMutate(const double value_min, const double value_max){
 		return [value_min, value_max](Individual *ind){

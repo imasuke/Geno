@@ -15,7 +15,6 @@ namespace Geno{
 			this->requiredParents_ = c.requiredParents_;
 		}
 		virtual ~Crossover(){}
-		//virtual void operator()(Individual *ind1, Individual *ind2) = 0;
 		virtual Crossover* clone(void) = 0;
 		size_t requiredParents(void){
 			return requiredParents_;

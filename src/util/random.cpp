@@ -32,5 +32,9 @@ namespace Geno{
 	double Randomizer::randomDouble(double max){
 		return randomDouble(0.0, max);
 	}
+
+	bool Randomizer::randomBool(void){
+		return (randomDouble(1.0) > 0.5) ? true : false;
+	}
 }
 

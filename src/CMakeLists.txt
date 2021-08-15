@@ -12,6 +12,7 @@ add_library(Geno SHARED
 	BinaryArrayIndividual.cpp
 	IntegerArrayIndividual.cpp
 	RealVectorIndividual.cpp
+	BinaryTreeIndividual.cpp
 	Statistics.cpp
 	util/random.cpp
 )

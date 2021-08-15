@@ -9,7 +9,7 @@
 #include "Geno/util.h"
 #include "Crossover.h"
 
-namespace Geno::crossover{
+namespace Geno::crossover::array{
 	template <class T>
 	void onePointCrossover(std::vector<T> *gene1, std::vector<T> *gene2, size_t gene_size) {
 		Randomizer rand;

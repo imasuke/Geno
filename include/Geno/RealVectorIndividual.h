@@ -11,10 +11,10 @@ namespace Geno{
 	class RealVectorIndividual : public ArrayIndividual<double>{
 	public:
 		using Initializer = std::function <void(RealVectorIndividual*)>;
-		using OnePointCrossover = crossover::OnePointCrossover<RealVectorIndividual>;
-		using TwoPointCrossover = crossover::TwoPointCrossover<RealVectorIndividual>;
-		using UniformCrossover = crossover::UniformCrossover<RealVectorIndividual>;
-		using BlxAlphaCrossover = crossover::BlxAlphaCrossover<RealVectorIndividual>;
+		using OnePointCrossover = crossover::array::OnePointCrossover<RealVectorIndividual>;
+		using TwoPointCrossover = crossover::array::TwoPointCrossover<RealVectorIndividual>;
+		using UniformCrossover = crossover::array::UniformCrossover<RealVectorIndividual>;
+		using BlxAlphaCrossover = crossover::array::BlxAlphaCrossover<RealVectorIndividual>;
 		using SwapMutation = mutation::SwapMutation<RealVectorIndividual>;
 		using ShuffleMutation = mutation::ShuffleMutation<RealVectorIndividual>;
 

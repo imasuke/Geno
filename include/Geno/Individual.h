@@ -4,11 +4,12 @@
 
 #include <vector>
 #include <functional>
+#include "util/Tree.h"
 
 namespace Geno{
 	class Individual;
-	typedef std::function <double(const Individual&)> FitnessFunction;
-	typedef std::vector<Individual*> Population;
+	using FitnessFunction = std::function <double(const Individual&)>;
+	using Population = std::vector<Individual*>;
 
 	// Abstract Individual class
 	class Individual{
@@ -57,10 +58,33 @@ namespace Geno{
 				this->genotype[i] = c.genotype[i];
 			}
 		}
+		virtual ~ArrayIndividual(){}
 
 	public:
 		std::vector<T> genotype;
 		size_t gene_size;
+	};
+
+	// Abstract Individual class that has tree structure genotype
+	template <class T>
+	class TreeIndividual : public Individual{
+	public:
+		TreeIndividual(const unsigned int depth) :
+		 Individual(TREE, TYPE_UNDEF), genotype(nullptr), depth(depth) {
+		 }
+		TreeIndividual(const TreeIndividual &c) :
+		 Individual(c)
+		{
+			this->genotype = c.genotype;	
+			this->depth = c.depth;
+		}
+		virtual ~TreeIndividual(){
+			if(genotype != nullptr) delete genotype;
+		}
+
+	public:
+		Tree<T> *genotype; // root node
+		unsigned int depth;
 	};
 }
 

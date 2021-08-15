@@ -14,6 +14,7 @@ namespace Geno{
 		int randomInt(int max);
 		double randomDouble(double min, double max);
 		double randomDouble(double max);
+		bool randomBool(void);
 	private:
 		std::mt19937 *mt;
 	};

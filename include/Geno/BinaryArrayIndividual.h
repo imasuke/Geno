@@ -11,9 +11,9 @@ namespace Geno{
 	class BinaryArrayIndividual : public ArrayIndividual<bool>{
 	public:
 		using Initializer = std::function <void(BinaryArrayIndividual*)>;
-		using OnePointCrossover = crossover::OnePointCrossover<BinaryArrayIndividual>;
-		using TwoPointCrossover = crossover::TwoPointCrossover<BinaryArrayIndividual>;
-		using UniformCrossover = crossover::UniformCrossover<BinaryArrayIndividual>;
+		using OnePointCrossover = crossover::array::OnePointCrossover<BinaryArrayIndividual>;
+		using TwoPointCrossover = crossover::array::TwoPointCrossover<BinaryArrayIndividual>;
+		using UniformCrossover = crossover::array::UniformCrossover<BinaryArrayIndividual>;
 		using SwapMutation = mutation::SwapMutation<BinaryArrayIndividual>;
 		using ShuffleMutation = mutation::ShuffleMutation<BinaryArrayIndividual>;
 

@@ -11,12 +11,12 @@ namespace Geno{
 	class IntegerArrayIndividual : public ArrayIndividual<int>{
 	public:
 		using Initializer = std::function <void(IntegerArrayIndividual*)>;
-		using OnePointCrossover = crossover::OnePointCrossover<IntegerArrayIndividual>;
-		using TwoPointCrossover = crossover::TwoPointCrossover<IntegerArrayIndividual>;
-		using UniformCrossover = crossover::UniformCrossover<IntegerArrayIndividual>;
-		using CyclicCrossover = crossover::CyclicCrossover<IntegerArrayIndividual>;
-		using PartiallyMappedCrossover = crossover::PartiallyMappedCrossover<IntegerArrayIndividual>;
-		using OrderCrossover = crossover::OrderCrossover<IntegerArrayIndividual>;
+		using OnePointCrossover = crossover::array::OnePointCrossover<IntegerArrayIndividual>;
+		using TwoPointCrossover = crossover::array::TwoPointCrossover<IntegerArrayIndividual>;
+		using UniformCrossover = crossover::array::UniformCrossover<IntegerArrayIndividual>;
+		using CyclicCrossover = crossover::array::CyclicCrossover<IntegerArrayIndividual>;
+		using PartiallyMappedCrossover = crossover::array::PartiallyMappedCrossover<IntegerArrayIndividual>;
+		using OrderCrossover = crossover::array::OrderCrossover<IntegerArrayIndividual>;
 		using SwapMutation = mutation::SwapMutation<IntegerArrayIndividual>;
 		using ShuffleMutation = mutation::ShuffleMutation<IntegerArrayIndividual>;
 
